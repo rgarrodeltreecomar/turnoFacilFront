@@ -26,7 +26,7 @@ export const LoginPage = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
   };
   
