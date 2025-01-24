@@ -16,7 +16,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   LocalShipping as LocalShippingIcon,
   Settings as SettingsIcon,
-  Group as GroupIcon,
+  MonitorHeart as MonitorHeartIcon,
   Inventory as InventoryIcon,
   Warehouse as WarehouseIcon,
   SyncAlt as SyncAltIcon,
@@ -27,7 +27,7 @@ import {
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
   Security as SecurityIcon,
-  ListAlt as ListAltIcon,
+  MedicalServices as MedicalServicesIcon,
   Gite as GiteIcon,
   Work as WorkIcon,
   Person as PersonAddIcon,
@@ -101,15 +101,15 @@ export const SideBar: React.FC<SideBarProps> = ({
 
           <ListItem key="General" disablePadding>
             <ListItemButton
-               component={RouterLink}
-               to="/home"
+              // component={RouterLink}
+              // to="/home"
               onClick={() => onClickMenu(keysCollapse[2])}
              selected={pathname.includes("/home")}
             >
               <ListItemIcon>
-                <ListAltIcon />
+                <MedicalServicesIcon />
               </ListItemIcon>
-              <ListItemText primary={"Primer1"} />
+              <ListItemText primary={"Gestion Medica"} />
               {openCollapse === keysCollapse[2] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </ListItemButton>
           </ListItem>
@@ -121,13 +121,13 @@ export const SideBar: React.FC<SideBarProps> = ({
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={RouterLink}
-                to=""
-                selected={pathname.includes("")}
+                to="/specialties"
+                selected={pathname.includes("specialties")}
               >
                 <ListItemIcon>
-                  <GroupIcon />
+                  <MonitorHeartIcon />
                 </ListItemIcon>
-                <ListItemText primary={("1")} />
+                <ListItemText primary={"Especialidades"} />
               </ListItemButton>
               <ListItemButton
                 sx={{ pl: 4 }}
@@ -222,10 +222,10 @@ export const SideBar: React.FC<SideBarProps> = ({
           </Collapse>
           <ListItem key="2" disablePadding>
             <ListItemButton
-               component={RouterLink}
-               to="/home"
+              //  component={RouterLink}
+              //  to="/"
               onClick={() => onClickMenu(keysCollapse[3])}
-             selected={pathname.includes("/home")}
+             selected={pathname.includes("/a")}
             >
               <ListItemIcon>
                 <GiteIcon />

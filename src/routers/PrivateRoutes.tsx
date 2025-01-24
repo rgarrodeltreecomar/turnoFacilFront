@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import {  Route, Routes, useLocation } from "react-router-dom";
 import { AppLayout } from "../componentes/LayoutApp/AppLayout";
-import { Home } from "../pages";
+import { Home, Especialidades } from "../pages";
+
 //import { ApiButton, Home, UserProfile, ValidateCode } from "../pages";
 
 
@@ -18,6 +19,7 @@ export const PrivateRoutes: React.FC = () => {
       <Routes>
           
           <Route path="/home" element={< Home data={undefined} />} />
+          <Route path="/specialties" element={< Especialidades />} />
         </Routes>
     </AppLayout>
   );

@@ -2,13 +2,13 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextProps {
   status: string;
-  user: null | { name: string; email: string };
+  user: null | { nombre: string; email: string };
   login: (userData: { email: string; password: string }) => string | void;
   logout: () => void;
 }
 
 const predefinedUser = {
-  name: 'Rodrigo',
+  nombre: 'Rodrigo',
   email: 'rodrigo@example.com',
   password: '12345678',
 };
@@ -21,7 +21,7 @@ interface AuthProviderProps {
 
 export const AuthProvider = ({ children }: AuthProviderProps): React.ReactElement => {
   const [status, setStatus] = useState('not-authenticated');
-  const [user, setUser] = useState<null | { name: string; email: string }>(null);
+  const [user, setUser] = useState<null | { nombre: string; email: string }>(null);
   const [error, setError] = useState<string | null>(null);
 
   const login = (userData: { email: string; password: string }): string | void => {
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }: AuthProviderProps): React.ReactElemen
       userData.email === predefinedUser.email &&
       userData.password === predefinedUser.password
     ) {
-      setUser({ name: predefinedUser.name, email: predefinedUser.email });
+      setUser({ nombre: predefinedUser.nombre, email: predefinedUser.email });
       setStatus('authenticated');
       setError(null); // Limpiar errores en caso de éxito
       return 'success'; // Retorna un indicador de éxito
