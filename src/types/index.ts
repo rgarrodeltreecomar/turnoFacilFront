@@ -3,12 +3,15 @@ export interface SideBarProps {
     open: boolean;
     handleSideBarClose: () => void;
 };
-
+export interface ColumnProps {
+    text: string;
+    align: 'inherit' | 'left' | 'center' | 'right' | 'justify';
+}
 export interface Especialidad {
     id: number;
     detalle: string;
-    medicos: Medico[] | null;  // Puede ser null si no hay médicos asociados
-  }
+    medicos: Medico[] | null;  
+  };
 
  export interface CustomButtonProps {
     variant?: 'contained' | 'outlined';
@@ -18,19 +21,19 @@ export interface Especialidad {
     children: React.ReactNode;
     sx?: unknown; 
     endIcon?: React.ReactNode;
-  }
+  };
 export interface Horario {
     id: string;
     medicos: string[];  
     dia: string;        
     activo: boolean;
-  }
+  };
 
 export interface Paquete {
     id: string;
     servicios: string[];
     precio: number;
-}
+};
 export interface Servicio {
     id: string;
     codigoServicio: string;
@@ -38,7 +41,7 @@ export interface Servicio {
     paquetes: Paquete[];
     nombre: string;
     precio: number;
-}
+};
 
 export interface User {
     id: string;

@@ -14,11 +14,9 @@ import {
 } from "@mui/material";
 import {
   ChevronLeft as ChevronLeftIcon,
-  LocalShipping as LocalShippingIcon,
   Settings as SettingsIcon,
   MonitorHeart as MonitorHeartIcon,
   Inventory as InventoryIcon,
-  Warehouse as WarehouseIcon,
   SyncAlt as SyncAltIcon,
   QueryStats as QueryStatsIcon,
   Transform as TransformIcon,
@@ -41,6 +39,8 @@ import {
   LocationOn as LocationOnIcon,
   Handshake as HandshakeIcon,
   MonetizationOn as MonetizationOnIcon,
+  Dashboard as DashboardIcon,
+  PersonSearch as PersonSearchIcon,
 } from "@mui/icons-material";
 import { Icon } from "semantic-ui-react";
 import { SideBarProps } from "../../types";
@@ -104,7 +104,7 @@ export const SideBar: React.FC<SideBarProps> = ({
               // component={RouterLink}
               // to="/home"
               onClick={() => onClickMenu(keysCollapse[2])}
-             selected={pathname.includes("/home")}
+            // selected={pathname.includes("/home")}
             >
               <ListItemIcon>
                 <MedicalServicesIcon />
@@ -121,8 +121,19 @@ export const SideBar: React.FC<SideBarProps> = ({
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={RouterLink}
+                to="/home"
+                selected={pathname.includes("home")}
+              >
+                <ListItemIcon>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Inicio"} />
+              </ListItemButton>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                component={RouterLink}
                 to="/specialties"
-                selected={pathname.includes("specialties")}
+                selected={pathname.includes("/specialties")}
               >
                 <ListItemIcon>
                   <MonitorHeartIcon />
@@ -132,24 +143,13 @@ export const SideBar: React.FC<SideBarProps> = ({
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={RouterLink}
-                to="/home"
-                selected={pathname.includes("home")}
+                to="/doctors"
+                selected={pathname.includes("doctors")} ////////acacacacacacacaca
               >
                 <ListItemIcon>
-                  <LocalShippingIcon />
+                  <PersonSearchIcon />
                 </ListItemIcon>
-                <ListItemText primary={("1")} />
-              </ListItemButton>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                component={RouterLink}
-                to="/init/overview/deposit"
-                selected={pathname.includes("/init/overview/deposit")}
-              >
-                <ListItemIcon>
-                  <WarehouseIcon />
-                </ListItemIcon>
-                <ListItemText primary={("1312s")} />
+                <ListItemText primary={"Medicos"} />
               </ListItemButton>
               <ListItemButton
                 sx={{ pl: 4 }}
