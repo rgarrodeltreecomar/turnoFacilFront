@@ -18,7 +18,7 @@ export const PrivateRoutes: React.FC = () => {
     <AppLayout key="app-layout">
       <Routes>
           
-          <Route path="/home" element={< Home data={undefined} />} />
+          <Route path="/home" element={< Home  />} />
           <Route path="/specialties" element={< Especialidades />} />
         </Routes>
     </AppLayout>
