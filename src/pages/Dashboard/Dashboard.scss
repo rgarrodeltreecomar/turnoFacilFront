@@ -1,0 +1,59 @@
+
+.dashboard-container {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    
+    .dashboard-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+  
+    .dashboard-card {
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+      &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+  
+      .MuiTypography-h6 {
+        font-weight: bold;
+        color: #555;
+      }
+  
+      .MuiButton-root {
+        margin-top: 1rem;
+        font-size: 0.875rem;
+      }
+    }
+  
+    .dashboard-table {
+      margin-top: 2rem;
+  
+      .ui.table {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+  
+        th {
+          background: #f1f1f1;
+          color: #555;
+          font-weight: bold;
+          text-align: left;
+        }
+  
+        td {
+          color: #666;
+          font-size: 0.875rem;
+        }
+  
+        .icon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+  
