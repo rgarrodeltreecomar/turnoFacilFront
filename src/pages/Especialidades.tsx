@@ -53,12 +53,12 @@ export const Especialidades: React.FC = () => {
                   <Card variant="outlined">
                     <CardContent>
                       <Typography variant="h6" gutterBottom>
-                        {especialidad.detalle}
+                        {especialidad.descripcion}
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
                         Médicos Asociados:{" "}
-                        {especialidad.medicos?.length
-                          ? especialidad.medicos.length
+                        {especialidad.id
+                          ? especialidad.id
                           : "Ninguno"}
                       </Typography>
                     </CardContent>

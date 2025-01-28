@@ -9,7 +9,7 @@ export interface ColumnProps {
 }
 export interface Especialidad {
     id: number;
-    detalle: string;
+    descripcion: string;
     medicos: Medico[] | null;  
   };
 
