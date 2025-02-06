@@ -8,9 +8,8 @@ export interface ColumnProps {
     align: 'inherit' | 'left' | 'center' | 'right' | 'justify';
 }
 export interface Especialidad {
-    id: number;
     descripcion: string;
-    medicos: Medico[] | null;  
+
   };
 
  export interface CustomButtonProps {

@@ -1,5 +1,6 @@
 import { SelectChangeEvent } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export const useForm = <T extends object>(initialState: T) => {
@@ -34,6 +35,8 @@ export const useForm = <T extends object>(initialState: T) => {
         }
     };
 
+    const generateId = () => uuidv4();
+
     const handleCheckboxChange = ({ target }: ChangeEvent<HTMLInputElement>, checked: boolean) => {
         const { name } = target;
         setFormValues({
@@ -62,6 +65,7 @@ export const useForm = <T extends object>(initialState: T) => {
         handleYearChange,
         handleFormValueChange,
         handleCheckboxChange,
+        generateId,
         ...formValues
     }
 };

@@ -16,7 +16,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Settings as SettingsIcon,
   MonitorHeart as MonitorHeartIcon,
-  Inventory as InventoryIcon,
+  AddModerator as AddModeratorIcon,
   SyncAlt as SyncAltIcon,
   QueryStats as QueryStatsIcon,
   Transform as TransformIcon,
@@ -154,13 +154,13 @@ export const SideBar: React.FC<SideBarProps> = ({
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={RouterLink}
-                to="/init/overview/supply"
-                selected={pathname.includes("/init/overview/supply")}
+                to="/new/specialties"
+                selected={pathname.includes("/new/specialties")}
               >
                 <ListItemIcon>
-                  <InventoryIcon />
+                  <AddModeratorIcon/>
                 </ListItemIcon>
-                <ListItemText primary={("312312fs")} />
+                <ListItemText primary="Nueva Especilidad" />
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>

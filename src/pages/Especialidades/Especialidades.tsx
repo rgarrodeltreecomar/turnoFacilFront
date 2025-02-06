@@ -10,8 +10,8 @@ import {
 import {
  // Search as SearchIcon,
 } from "@mui/icons-material";
-import { useEspecialidades, useForm } from "../hooks";
-import { Loading, SearchInput, SearchButton,TitleText  } from "../componentes";
+import { useEspecialidades, useForm } from "../../hooks";
+import { Loading, SearchInput, SearchButton,TitleText  } from "../../componentes";
 
 
 const loge = () => {

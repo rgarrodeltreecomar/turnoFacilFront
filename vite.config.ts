@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://clinicamedica.somee.com', // URL de la API
+        target: 'https://turno-facil-backend.onrender.com/', // URL de la API
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''), // Reescribe la ruta eliminando '/api'
       },
