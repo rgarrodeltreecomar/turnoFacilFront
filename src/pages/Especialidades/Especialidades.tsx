@@ -49,7 +49,7 @@ export const Especialidades: React.FC = () => {
     ) :  (
             <Grid container spacing={3}>
               {especialidades.map((especialidad) => (
-                <Grid item xs={12} sm={6} md={4} key={especialidad.id}>
+                <Grid item xs={12} sm={6} md={4} key={especialidad.descripcion}>
                   <Card variant="outlined">
                     <CardContent>
                       <Typography variant="h6" gutterBottom>
@@ -57,9 +57,8 @@ export const Especialidades: React.FC = () => {
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
                         Médicos Asociados:{" "}
-                        {especialidad.id
-                          ? especialidad.id
-                          : "Ninguno"}
+                        
+                      "Ninguno"
                       </Typography>
                     </CardContent>
                   </Card>
