@@ -463,7 +463,7 @@ export const SideBar: React.FC<SideBarProps> = ({
             timeout="auto"
             unmountOnExit>
             <List component="div" disablePadding>
-              {user && user.rol === "medico" && (
+              {user && user.rol.nombre === "Paciente" && (
                 <ListItemButton
                   sx={{ pl: 4 }}
                   component={RouterLink}
@@ -508,7 +508,7 @@ export const SideBar: React.FC<SideBarProps> = ({
           }}
         >
           <Typography variant="body1" color="gray">
-         VersionBeta
+         Version Funcional Registros
           </Typography>
         </Box>
       </Drawer>

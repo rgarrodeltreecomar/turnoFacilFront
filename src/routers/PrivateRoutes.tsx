@@ -21,6 +21,7 @@ export const PrivateRoutes: React.FC = () => {
           <Route path="/home" element={< Home  />} />
           <Route path="/specialties" element={< Especialidades />} />
           <Route path="/new/specialties" element={< NewEspecialidades />} />
+          <Route path="/new/specialties/:id" element={< NewEspecialidades />} />
         </Routes>
     </AppLayout>
   );

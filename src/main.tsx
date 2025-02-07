@@ -1,8 +1,8 @@
 //import { StrictMode } from 'react';
 import { BrowserRouter } from "react-router-dom";
 import { createRoot } from 'react-dom/client'
-import store from "./redux/store";
-import App from './App.tsx'
+import { store } from "./redux/store.ts";
+import { App } from "./App.tsx";
 import { Provider } from "react-redux";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 

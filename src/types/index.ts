@@ -3,20 +3,58 @@ export interface SideBarProps {
     open: boolean;
     handleSideBarClose: () => void;
 };
+export interface Authenticate {
+    accessToken: string;
+    refreshToken: string;
+    expiration: number;
+  };
+
+  export interface UserLogin {
+    email: string;
+    password: string;
+  }
+
+  export interface ResponseAuthLogin {
+    user: User;
+    auth: Authenticate;
+  }
+  export interface ResponseAuthRenew {
+    AccessToken: string;
+    ExpiresIn: number;
+  }
+  
+
+  export interface ErrorResponseAuth {
+    code:
+    | "UserNotConfirmedException"
+    | "NotAuthorizedException"
+    | "UsernameExistsException";
+    message: string;
+  }
+
 export interface ColumnProps {
     text: string;
     align: 'inherit' | 'left' | 'center' | 'right' | 'justify';
 }
 export interface Especialidad {
+    id: string;
     descripcion: string;
 
   };
 
+  export interface EspecialidadState {
+    especialidadActive: Especialidad | null;
+    Especialidad: Especialidad[];
+  }
+
  export interface CustomButtonProps {
+    type?: 'submit' | 'reset' | 'button';
+    disabled?: boolean;
     variant?: 'contained' | 'outlined';
     color?: 'primary' | 'secondary' | 'error' | 'warning' | 'success';
     startIcon?: React.ReactNode;
-    onClick?: () => void;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void ;
+    //onClickSumbit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     children: React.ReactNode;
     sx?: unknown; 
     endIcon?: React.ReactNode;
@@ -43,15 +81,39 @@ export interface Servicio {
 };
 
 export interface User {
-    id: string;
+    id?: string;
     nombre: string;
     apellido: string;
+    dni: string;
     email: string;
     fechaNac: string;
     telefono: string;
     direccion: string;
-    rol: string;
+    rol: {
+        nombre: string;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        usuarios: any[];
+    }
+   
+    
 };
+
+
+
+
+export interface UserRegister extends User {
+    password: string;
+    confirmPassword?: string;
+    obraSocial: boolean;
+    activo: true;
+  }
+  
+export interface Medicos extends User {
+    especialidadId: number;
+    sueldo: number;
+    activo: boolean;
+  }
+
 export interface AuthState {
     status: "checking" | "authenticated" | "not-authenticated";
     user: User | null;
@@ -64,20 +126,8 @@ export interface NavBarProps {
     open: boolean;
     handleSideBarOpen: () => void;
 };
-export interface Medico {
-    nombre: string;
-    apellido: string;
-    especialidad: Especialidad;  
-    activo: boolean;
-};
 
 
-// id: int
-// nombre: string
-// apellido: string
-// dni: string
-// Email: string
-// fechaNac: Date
-// Telefono: string
-// direccion: string
+
+
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -6,20 +7,42 @@ import {
   Typography,
   Container,
   Paper,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 import {
- // Search as SearchIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
 } from "@mui/icons-material";
-import { useEspecialidades, useForm } from "../../hooks";
+import { useEspecialidades, useForm ,useAppDispatch} from "../../hooks";
 import { Loading, SearchInput, SearchButton,TitleText  } from "../../componentes";
+import {  setEspecialidadActive } from '../../redux/especialidades'
+import { Especialidad } from "../../types";
+
 
 
 const loge = () => {
   console.log("Es un log")
 }
 export const Especialidades: React.FC = () => {
-    const { isLoading, especialidades, getEspecialidades  } = useEspecialidades();
+    const { isLoading, especialidades, getEspecialidades,deleteEspecialidad  } = useEspecialidades();
     const { filterText, handleInputChange } = useForm({ filterText: "" });
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const onClickUpdateEspecialidades = (item: Especialidad): void => {
+      dispatch(setEspecialidadActive(item));
+      navigate(`/new/specialties/${item.id}`);
+    };
+  
+    const handleDeleteEspecialidades = async (item: Especialidad) => {
+      console.log("Intentando eliminar especialidad con ID:", item.id);
+      if (!item.id) return;
+    
+      await deleteEspecialidad(item.id);
+      setTimeout(() => getEspecialidades());
+    };
+    
  
 
     useEffect(() => {
@@ -48,18 +71,28 @@ export const Especialidades: React.FC = () => {
       <Loading loading={isLoading} />
     ) :  (
             <Grid container spacing={3}>
-              {especialidades.map((especialidad) => (
-                <Grid item xs={12} sm={6} md={4} key={especialidad.descripcion}>
+              {especialidades.map((row) => (
+                <Grid item xs={12} sm={6} md={4} key={row.id}>
                   <Card variant="outlined">
                     <CardContent>
                       <Typography variant="h6" gutterBottom>
-                        {especialidad.descripcion}
+                        {row.descripcion}
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
                         Médicos Asociados:{" "}
                         
                       "Ninguno"
                       </Typography>
+                      <Tooltip title={"Editar"}>
+                  <IconButton aria-label="Edit" onClick={() => onClickUpdateEspecialidades(row)}>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={"Eliminar"}>
+                  <IconButton onClick={() => handleDeleteEspecialidades (row)} style={{ fontSize: '1rem' }}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
                     </CardContent>
                   </Card>
                 </Grid>
