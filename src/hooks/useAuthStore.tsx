@@ -21,7 +21,7 @@ import {
   
 } from "../types";
 
-import { HttpStatusCode } from "axios";
+import {  HttpStatusCode } from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 //import { convertTimestampToDate } from "../helpers";
@@ -117,6 +117,7 @@ export const useAuthStore = () => {
       }
   
       dispatch(finishLoading());
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       // Si el backend retorna error, mostrar mensaje
       dispatch(onLogout("Credenciales incorrectas"));
@@ -172,6 +173,7 @@ export const useAuthStore = () => {
 
 // En useAuthStore.tsx
 const startRegister = async (userData: UserRegister) => {
+  dispatch(startLoading());
   try {
     const response = await turnofacilAPI.post(endpoints.pacientes, userData);
     
