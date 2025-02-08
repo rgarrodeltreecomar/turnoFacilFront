@@ -6,10 +6,14 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://turno-facil-backend.onrender.com/', // URL de la API
+        target: 'https://turno-facil-backend.onrender.com/',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // Reescribe la ruta eliminando '/api'
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
+  build: {
+    outDir: 'dist',
+  },
+  base: '/',  
 });
