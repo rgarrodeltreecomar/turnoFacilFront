@@ -12,6 +12,7 @@ import {
 import { useAppSelector } from "./useRedux";
 import {
   Authenticate,
+  ErrorResponseAuth,
   //ErrorResponseAuth,
 //  ResponseAuthLogin,
   ResponseAuthRenew,
@@ -21,7 +22,7 @@ import {
   
 } from "../types";
 
-import {  HttpStatusCode } from "axios";
+import {  AxiosError, HttpStatusCode } from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 //import { convertTimestampToDate } from "../helpers";
@@ -171,33 +172,124 @@ export const useAuthStore = () => {
 // };
 
 
-// En useAuthStore.tsx
+
+// const startRegister = async (userData: UserRegister) => {
+//   dispatch(startLoading());
+  
+//   try {
+//     const response = await turnofacilAPI.post(endpoints.pacientes, userData);
+
+//     if (response.status === 201) {
+//       // Guardar temporalmente el email para futuras verificaciones
+//       localStorage.setItem("username_temp", userData.email);
+      
+//       await Swal.fire({
+//         icon: 'success',
+//         title: '¡Todo listo!',
+//         html: '<div style="font-size: 1.1rem">Cuenta creada exitosamente<br/><span style="font-size: 0.9rem">Ya puedes iniciar sesión</span></div>',
+//         confirmButtonColor: '#1976d2',
+//         backdrop: 'rgba(0,0,0,0.4)',
+//       });
+
+//       dispatch(onLogout("Confirm account.")); // Estado de logout forzando la confirmación
+//       navigate("/login");
+
+//       return dispatch(finishLoading()); // Finaliza la carga después de navegar
+//     }
+
+//     throw new Error("Registro fallido"); 
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   } catch (error: AxiosError<ErrorResponseAuth> | any) {
+//     console.error("Error en el registro:", error);
+
+//     let errorMessage = "Ocurrió un problema durante el registro";
+
+//     if (error.response) {
+//       const responseError: ErrorResponseAuth = error.response.data;
+//       const code = responseError.code;
+//       const message = responseError.message;
+
+//       if (code === "UsernameExistsException") {
+//         errorMessage = "El usuario ya está registrado.";
+//         dispatch(onLogout(message));
+//       } else {
+//         errorMessage = responseError.message[1] || "Hubo un error inesperado.";
+//         dispatch(onLogout(errorMessage));
+//       }
+//     }
+
+//     await Swal.fire({
+//       icon: "error",
+//       title: "Error",
+//       text: errorMessage,
+//     });
+
+//   } finally {
+//     dispatch(finishLoading()); // Asegura que la carga finaliza incluso en caso de error
+//   }
+// };
+
+
 const startRegister = async (userData: UserRegister) => {
   dispatch(startLoading());
+
   try {
     const response = await turnofacilAPI.post(endpoints.pacientes, userData);
-    
+
     if (response.status === 201) {
+      localStorage.setItem("username_temp", userData.email);
+
+
+      dispatch(finishLoading()); 
       await Swal.fire({
         icon: 'success',
         title: '¡Todo listo!',
         html: '<div style="font-size: 1.1rem">Cuenta creada exitosamente<br/><span style="font-size: 0.9rem">Ya puedes iniciar sesión</span></div>',
         confirmButtonColor: '#1976d2',
-        backdrop: 'rgba(0,0,0,0.4)'
+        backdrop: 'rgba(0,0,0,0.4)',
       });
+
+     // dispatch(onLogout("Confirm account."));
+
       
-      navigate('/login');
+      navigate("/login");
+
+      return; // Salir de la función aquí
     }
-  } catch (error) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'Ocurrió un problema durante el registro'
+
+    throw new Error("Registro fallido"); 
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: AxiosError<ErrorResponseAuth> | any) {
+    console.error("Error en el registro:", error);
+
+    let errorMessage = "Ocurrió un problema durante el registro";
+
+    if (error.response) {
+      const responseError: ErrorResponseAuth = error.response.data;
+      const code = responseError.code;
+      const message = responseError.message;
+
+      if (code === "UsernameExistsException") {
+        errorMessage = "El usuario ya está registrado.";
+        dispatch(onLogout(message));
+      } else {
+        errorMessage = responseError.message[1] || "Hubo un error inesperado.";
+        dispatch(onLogout(errorMessage));
+      }
+    }
+
+    await Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: errorMessage,
     });
+
   } finally {
-    dispatch(finishLoading());
+    dispatch(finishLoading()); // Asegurar que siempre termina la carga
   }
 };
+
 
   const startConfirm = async (confirmationCode: string) => {
     dispatch(startLoading());
