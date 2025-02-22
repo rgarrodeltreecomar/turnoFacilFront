@@ -4,6 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { uiSlice } from "./ui";
 import { authSlice } from "./auth";
 import { especialidadSlice } from "./especialidades";
+import { medicosSlice } from "./medicos";
 
 
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     ui: uiSlice.reducer,
     auth: authSlice.reducer,
     especialidad: especialidadSlice.reducer,
+    medico: medicosSlice.reducer,
   }
 });
 

@@ -8,3 +8,4 @@ export * from './SearchBar/SearchBar';
 export * from './SearchButton/SearchButton';
 export * from './TitleText/TitleText';
 export * from './DashboardTable/DashboardTable';
+export * from './DoctorIcon/DoctorIcon';

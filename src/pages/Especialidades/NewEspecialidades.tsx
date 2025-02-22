@@ -14,15 +14,14 @@ import {
 import { useEspecialidades, useForm, useAppSelector, useAppDispatch } from "../../hooks";
 import { TitleText,ButtonCustom  } from "../../componentes";
 import { Especialidad } from "../../types";
-import { v4 as uuidv4 } from 'uuid';
 import { removeEspecialidadActive} from '../../redux/especialidades'
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 
 const initialForm: Especialidad = {
-  descripcion: "",
-  id: "",
+  idEspecialidad: "",
+  detalle: "",
 }
 
 
@@ -35,7 +34,7 @@ export const NewEspecialidades: React.FC = () => {
 
  
 const {
-    descripcion,
+    detalle,
     formValues,
     handleInputChange,
     setFormValues,
@@ -43,19 +42,19 @@ const {
     } = useForm<Especialidad>(initialForm)
 
     const handleAddEspecialidad = () => {
-        if (!descripcion.trim()) return;
+        if (!detalle.trim()) return;
 
     const newEspecialidad = {
         ...formValues,
-        id: uuidv4(),
-        
+
+        idEspecialidad: uuidv4() 
       };
       createEspecialidades(newEspecialidad);
       reset();
     }
 
     const handleUpdateEspecialidad = () => {
-      if (! formValues.id) return;
+      if (! formValues.idEspecialidad) return;
       updateEspecialidad(formValues);
       dispatch(removeEspecialidadActive())
       reset()
@@ -79,7 +78,7 @@ const {
     
     useEffect(() => {
       return () => {
-        dispatch(removeEspecialidadActive());  // Limpia el estado activo
+        dispatch(removeEspecialidadActive());  
       };
     }, [dispatch]);
     
@@ -97,8 +96,8 @@ const {
                 label="Especialidad"
                 variant="outlined"
                 type="text"
-                name="descripcion"
-                value={descripcion}
+                name="detalle"
+                value={detalle}
                 onChange={handleInputChange}
                 inputProps={{ maxLength: 30 }}
                 fullWidth
@@ -106,7 +105,6 @@ const {
             </Grid>
             <Grid item xs={12} sm={4}>
               <Grid container spacing={2} justifyContent="flex-start">
-                {/* Botón de Cancelar en la izquierda */}
                 {especialidadActive && (
                   <Grid item>
                     <ButtonCustom
@@ -119,8 +117,6 @@ const {
                     </ButtonCustom>
                   </Grid>
                 )}
-    
-                {/* Botón de Agregar o Actualizar en la derecha */}
                 <Grid item>
                   <ButtonCustom
                     variant="contained"

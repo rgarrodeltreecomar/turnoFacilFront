@@ -1,222 +1,219 @@
 
-// import React, { useEffect } from 'react'
-// import { useNavigate, Link as RouterLink } from 'react-router-dom'
-// import {
-//   Box,
-//   Button,
-//   Container,
-//   Grid,
-//   IconButton,
-//   Tooltip,
-//   Typography,
-//   TableContainer,
-//   Paper,
-// } from '@mui/material'
-// import {
-//   Add as AddIcon,
-//   Edit as EditIcon,
-//   Delete as DeleteIcon,
-//   List as ListIcon,
-// } from '@mui/icons-material'
-// import { useAppDispatch, useForm, useMenuModules } from '../../hooks'
-// import { setMenuModulesACtive } from '../../store/menumodules/menuModulesSlice'
-// import {
-//   DashboardTable,
-//   ItemRow,
-//   Loading,
-//   SearchButton,
-//   SearchInput,
-//   TableCellStyled,
-// } from '../../componentes'
-// import { ColumnProps, MenuModules } from '../../types'
-// import { TitleText } from '../../componentes'
+import React, { useEffect } from 'react'
+import { useNavigate, Link as RouterLink } from 'react-router-dom'
+import {
+  Box,
+  Container,
+  Grid,
+  IconButton,
+  Tooltip,
+  //Typography,
+  TableContainer,
+  Paper,
+} from '@mui/material'
+import {
+  PersonAddAlt as  PersonAddAltIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+} from '@mui/icons-material'
+import { useAppDispatch, useForm, useMedicos } from '../../hooks'
+import { setMedicosActive } from '../../redux/medicos'
+import {
+  ButtonCustom,
+  DashboardTable,
+  DoctorIcon,
+  ItemRow,
+  Loading,
+  SearchButton,
+  SearchInput,
+  TableCellStyled,
+} from '../../componentes'
+import { ColumnProps, Medicos } from '../../types'
+import { TitleText } from '../../componentes'
 
-// const columns: ColumnProps[] = [
-//   { text: 'Modulo', align: 'left' },
-//   { text: 'System', align: 'center' },
-//   { text: 'ID', align: 'center' },
-//   { text: 'Menu', align: 'center' },
-//   { text: 'Orden', align: 'center' }, 
-// ]
+const columns: ColumnProps[] = [
+  { text: 'Nomrbe', align: 'left' },
+  { text: 'Apellido', align: 'center' },
+  { text: 'Email', align: 'center' },
+  { text: 'Sueldo', align: 'center' },
+  
+]
 
-// export const ListMedicos: React.FC = () => {
-//   const navigate = useNavigate()
-//   const dispatch = useAppDispatch()
-//   const {
-//     isLoading,
-//     menuModules,
-//     getMenuModules,
-//     removeMenuModules,
-//   } = useMenuModules()
-// const { filterText, handleInputChange } = useForm({ filterText: "" });
+export const ListMedicos: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const {
+    isLoading,
+    medicos,
+    getMedicos,
+    deleteMedicos,
+  } = useMedicos()
+const { filterText, handleInputChange } = useForm({ filterText: "" });
 
-//   const filterMenuModules = (
-//     menuModules: MenuModules[],
-//     filterText: string,
-//   ): MenuModules[] => {
-//     const filteredBySearch = menuModules.filter((menuModules) =>
-//       matchesFilter(menuModules, filterText),
-//     )
-//     return filteredBySearch
-//   }
+  const filterMenuModules = (
+    medicos: Medicos[],
+    filterText: string,
+  ): Medicos[] => {
+    const filteredBySearch = medicos.filter(( medicos) =>
+      matchesFilter( medicos, filterText),
+    )
+    return filteredBySearch
+  }
 
-//   const normalizeText = (text: string) => {
-//     return text
-//       .normalize('NFD')
-//       .replace(/[\u0300-\u036f]/g, '')
-//       .toLowerCase()
-//   }
+  const normalizeText = (text: string) => {
+    return text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+  }
 
-//   const matchesFilter = (menuModules: MenuModules, filter: string) => {
-//     const normalizedFilter = normalizeText(filter)
-//     const searchableFields = [
-//       menuModules.systemType,
-//       menuModules.module,
-//       menuModules.menuOption,
-//       String(menuModules.id),
-//     ]
+  const matchesFilter = (medicos:  Medicos, filter: string) => {
+    const normalizedFilter = normalizeText(filter)
+    const searchableFields = [
+        medicos.nombre,
+        medicos.apellido,
+        medicos.email,
+        medicos.telefono,
+    ]
 
-//     return searchableFields.some((field) =>
-//       normalizeText(String(field)).includes(normalizedFilter),
-//     )
-//   }
+    return searchableFields.some((field) =>
+      normalizeText(String(field)).includes(normalizedFilter),
+    )
+  }
 
-// //   const onClickSearch = () => {
-// //     if (filterText === '') {
-// //       getMenuModules()
-// //       return
-// //     }
-// //   }
-
-// const loge = () => {
-//     console.log("Es un log")
-//   }
-
-//   const onClickUpdateMenuModules = (item: MenuModules) => {
-//     console.log('Item ID:', item._id)
-//     dispatch(setMenuModulesACtive(item))
-//     navigate(`/menus-modules/${item._id}`)
-//   }
-
-//   const handleDeleteMenuModules = (item: MenuModules) => {
-//     if (item._id && item._rev) {
-//       removeMenuModules(item._id, item._rev)
+//   const onClickSearch = () => {
+//     if (filterText === '') {
 //       getMenuModules()
+//       return
 //     }
 //   }
 
-// //   useEffect(() => {
-// //     getMenuModules()
-// //     // eslint-disable-next-line react-hooks/exhaustive-deps
-// //   }, [])
+const loge = () => {
+    console.log("Es un log")
+  }
 
-//   return (
-//     <>
-//       {isLoading && <Loading loading />}
-//       <Container maxWidth="md" sx={{ ml: 0 }}>
-//         <Box
-//           component="div"
-//           display="flex"
-//           alignItems="center"
-//           sx={{ ml: { sm: 2 }, pt: 2 }}
-//         >
-//           <ListIcon />
-//            <TitleText text="Medicos" align="center" />
-//         </Box>
-//         <Box component="div" sx={{ mt: 7 }}>
-//           <Grid
-//             container
-//             spacing={0}
-//             direction="row"
-//             alignItems="center"
-//             justifyContent="space-between"
-//             sx={{ p: 2, mt: { sm: 2 } }}
-//           >
-//             <Grid item xs={6} sm={2}>
-//               <Button
-//                 variant="contained"
-//                 color="primary"
-//                 component={RouterLink}
-//                 to="/medico/new"
-//                 startIcon={<AddIcon />}
-//                 sx={{ mb: 2 }}
-//               >
-//                 Nuevo
-//               </Button>
-//             </Grid>
-//             <Grid item xs={12} sm={10}>
-//                <Grid container justifyContent="flex-end">
-//                               <Grid item xs={8} sm={9.0}>
-//                                 <SearchInput
-//                                   value={filterText}
-//                                   placeholder="Especialidad"
-//                                   handleInputChange={handleInputChange}
-//                                 />
-//                               </Grid>
-//                               <Grid item xs={4} sm={3}>
-//                                 <SearchButton text="Buscar" 
-//                               onClick={() => loge()}
-//                                  />
-//                               </Grid>
-//                               </Grid>
-//             </Grid>
-//           </Grid>
-//           <Box component="div" sx={{ p: 1 }}>
-//             <TableContainer
-//               key="table-medicos"
-//               sx={{
-//                 minHeight: '120px',
-//                 maxHeight: '540px',
-//                 overflow: 'scroll',
-//                 mb: 5,
-//               }}
-//               component={Paper}
-//             >
-//               <DashboardTable
-//                 key="datatable-medicos"
-//                 columns={columns}
-//                 isLoading={isLoading}
-//               >
-//                 {filterMenuModules(menuModules, filterText).map((row) => (
-//                   <ItemRow key={row._id} hover>
-//                     <TableCellStyled align="left">{row.module}</TableCellStyled>
-//                     <TableCellStyled align="center">
-//                       {row.systemType}
-//                     </TableCellStyled>
-//                     <TableCellStyled align="center">{row.id}</TableCellStyled>
-//                     <TableCellStyled align="center">
-//                       {row.menuOption}
-//                     </TableCellStyled>
-//                     <TableCellStyled align="center">
-//                       {row.order}
-//                     </TableCellStyled>{' '}
-//                     {/* Celda para "Orden" */}
-//                     <TableCellStyled align="right">
-//                       <Tooltip title="Editar">
-//                         <IconButton
-//                           aria-label="Editar"
-//                           onClick={() => onClickUpdateMenuModules(row)}
-//                         >
-//                           <EditIcon />
-//                         </IconButton>
-//                       </Tooltip>
-//                       <Tooltip title="Eliminar">
-//                         <IconButton
-//                           onClick={() => handleDeleteMenuModules(row)}
-//                           style={{ fontSize: '1rem' }}
-//                           color="default"
-//                         >
-//                           <DeleteIcon name="trash alternate" />
-//                         </IconButton>
-//                       </Tooltip>
-//                     </TableCellStyled>
-//                   </ItemRow>
-//                 ))}
-//               </DashboardTable>
-//             </TableContainer>
-//           </Box>
-//         </Box>
-//       </Container>
-//     </>
-//   )
-// }
+  const onClickUpdateMedicos = (item: Medicos) => {
+    console.log('Item ID:', item.idMedico)
+    dispatch(setMedicosActive(item))
+    navigate(`/doctors/${item.idMedico}`)
+  }
+
+  const handleDeleteMedicos = (item: Medicos) => {
+    if (item.idMedico ) {
+      deleteMedicos(item.idMedico)
+      getMedicos()
+    }
+  }
+
+  useEffect(() => {
+    getMedicos()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <>
+      {isLoading && <Loading loading />}
+       <Container maxWidth="md" sx={{ mb: 4 }}>
+      
+         <TitleText text="Medicos" startIcon={ <DoctorIcon sx={{ fontSize: 30, color: "primary.main" }} />} align="center" />
+                <Grid container justifyContent="flex-end">
+                       <Grid item xs={8} sm={9.0}>
+                         <SearchInput
+                           value={filterText}
+                           placeholder="Medicos"
+                           handleInputChange={handleInputChange}
+                         />
+                       </Grid>
+                       <Grid item xs={4} sm={3}>
+                         <SearchButton text="Buscar" onClick={() => loge()} />
+                       </Grid>
+                       </Grid>
+        <Paper variant="outlined" sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 3 } }} >
+            <Grid item xs={6} sm={2}>
+              <ButtonCustom
+                variant="contained"
+                color="primary"
+                component={RouterLink}
+                to="/doctors/new"
+                startIcon={< PersonAddAltIcon />}
+                sx={{ mb: 2 }}
+              >
+                Nuevo
+              </ButtonCustom>
+         
+            {/* <Grid item xs={12} sm={10}>
+               <Grid container justifyContent="flex-end">
+                  <Grid item xs={8} sm={9.0}>
+                    <SearchInput
+                      value={filterText}
+                      placeholder="Especialidad"
+                      handleInputChange={handleInputChange}
+                    />
+                  </Grid>
+                  <Grid item xs={4} sm={3}>
+                    <SearchButton text="Buscar" 
+                  onClick={() => loge()}
+                     />
+                  </Grid>
+                  </Grid>
+            </Grid> */}
+          </Grid>
+          <Box component="div" sx={{ p: 1 }}>
+            <TableContainer
+              key="table-medicos"
+              sx={{
+                minHeight: '120px',
+                maxHeight: '540px',
+                overflow: 'scroll',
+                mb: 5,
+              }}
+              component={Paper}
+            >
+              <DashboardTable
+                key="datatable-medicos"
+                columns={columns}
+                isLoading={isLoading}
+              >
+                {filterMenuModules(medicos, filterText).map((row) => (
+                  <ItemRow key={row.idMedico} hover>
+                    <TableCellStyled align="left">{row.nombre}</TableCellStyled>
+                    <TableCellStyled align="center">
+                      {row.apellido}
+                    </TableCellStyled>
+                    
+                    <TableCellStyled align="center">
+                      {row.email}
+                    </TableCellStyled>
+                    <TableCellStyled align="center">
+                      {row.sueldo}
+                    </TableCellStyled>{' '}
+                    <TableCellStyled align="right">
+                      <Tooltip title="Editar">
+                        <IconButton
+                          aria-label="Editar"
+                          onClick={() => onClickUpdateMedicos(row)}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Eliminar">
+                        <IconButton
+                          onClick={() => handleDeleteMedicos(row)}
+                          style={{ fontSize: '1rem' }}
+                          color="default"
+                        >
+                          <DeleteIcon name="trash alternate" />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCellStyled>
+                  </ItemRow>
+                ))}
+              </DashboardTable>
+            </TableContainer>
+          </Box>
+          </Paper>
+      </Container> 
+    </>
+    )
+  
+}

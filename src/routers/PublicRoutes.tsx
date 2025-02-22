@@ -32,11 +32,3 @@ export const PublicRoutes: React.FC = () => {
         </Grid>
     )
 }
-/*
- <Routes>
-            <Route path='/auth/login' element={<LoginPage />} />
-            <Route path='/auth/register' element={<RegisterPage />} />
-
-            <Route path="/*" element={<Navigate to="/init/auth/login" />} />
-        </Routes>
-*/

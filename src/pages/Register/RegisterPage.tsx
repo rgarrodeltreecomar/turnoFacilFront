@@ -14,8 +14,8 @@ import { Alert, Checkbox, FormLabel } from '@mui/material';
 import { onLogout } from '../../redux/auth';
 import { avatarImage, ButtonCustom, Loading, TitleText  } from '../../componentes';
  import { Copyright } from '@mui/icons-material';
-import { UserRegister } from '../../types';
-//import { v4 as uuidv4 } from 'uuid';
+import { PacienteRegister } from '../../types';
+import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import './registerStyles.scss'
 
@@ -32,22 +32,19 @@ import './registerStyles.scss'
 // // Regex - Url con protocolo https
 // //const regexUrl = /^(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))$/;
 
-const initialState: UserRegister = {
+const initialState: PacienteRegister = {
   email: '',
   password: '',
   nombre: '',
   apellido: '',
-  fechaNac: '',
+  fechaNacimiento: '',
   telefono: '',
   direccion: '',
   confirmPassword: '',
   obraSocial: false,
-  activo: true,
   dni: '',
-  rol: {
-    nombre: '',
-    usuarios: []
-  }
+  idPaciente: '',
+  idRol: 0,
 };
 
 const initialFormErrors = structuredClone(initialState);
@@ -63,7 +60,7 @@ export const RegisterPage: React.FC = () => {
         nombre,
         apellido,
         confirmPassword,
-        fechaNac,
+        fechaNacimiento,
         telefono,
         direccion,
         obraSocial,
@@ -147,22 +144,18 @@ const handleSubmit = () => {
   console.log("Se ha presionado el botón de registro");
 
   if (!validatePass()) return;
-  const userRegisterData: UserRegister = {
-    email,              
-    password,           
-    nombre,             
-    apellido,           
-    fechaNac,           
-    telefono,        
-    direccion,       
-    dni,                
-    obraSocial, 
-    activo: true,
-    rol: {
-      nombre: 'Paciente',
-      usuarios: []
-    },
-
+  const userRegisterData: PacienteRegister = {
+    email,
+    password,
+    nombre,
+    apellido,
+    fechaNacimiento,
+    telefono,
+    direccion,
+    dni,
+    obraSocial,
+    idPaciente: uuidv4(),
+    idRol: 3,
   };
 
   console.log("Datos del usuario para registro:", userRegisterData);
@@ -301,11 +294,11 @@ const handleSubmit = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                                   label="Fecha de Nacimiento"
-                                  value={fechaNac ? dayjs(fechaNac) : null}
+                                  value={fechaNacimiento ? dayjs(fechaNacimiento) : null}
                                   onChange={(newValue) => {
                                     handleInputChange({ 
                                       target: { 
-                                        name: 'fechaNac', 
+                                        name: 'fechaNacimiento', 
                                         value: newValue ? newValue.format('YYYY-MM-DD') : '' 
                                       } 
                                     } as React.ChangeEvent<HTMLInputElement>);
@@ -316,8 +309,8 @@ const handleSubmit = () => {
                                     textField: {
                                       required: true,
                                       fullWidth: true,
-                                      error: !!(formErrors.fechaNac),
-                                      helperText: formErrors.fechaNac || '',
+                                      error: !!(formErrors.fechaNacimiento),
+                                      helperText: formErrors.fechaNacimiento || '',
                                     }
                                   }}
                                 />

@@ -32,14 +32,14 @@ export const Especialidades: React.FC = () => {
 
     const onClickUpdateEspecialidades = (item: Especialidad): void => {
       dispatch(setEspecialidadActive(item));
-      navigate(`/new/specialties/${item.id}`);
+      navigate(`/specialties/${item.idEspecialidad}`);
     };
   
     const handleDeleteEspecialidades = async (item: Especialidad) => {
-      console.log("Intentando eliminar especialidad con ID:", item.id);
-      if (!item.id) return;
+      console.log("Intentando eliminar especialidad con ID:", item.idEspecialidad);
+      if (!item.idEspecialidad) return;
     
-      await deleteEspecialidad(item.id);
+      await deleteEspecialidad(item.idEspecialidad);
       setTimeout(() => getEspecialidades());
     };
     
@@ -72,11 +72,11 @@ export const Especialidades: React.FC = () => {
     ) :  (
             <Grid container spacing={3}>
               {especialidades.map((row) => (
-                <Grid item xs={12} sm={6} md={4} key={row.id}>
+                <Grid item xs={12} sm={6} md={4} key={row.idEspecialidad}>
                   <Card variant="outlined">
                     <CardContent>
                       <Typography variant="h6" gutterBottom>
-                        {row.descripcion}
+                        {row.detalle}
                       </Typography>
                       <Typography variant="body2" color="textSecondary">
                         Médicos Asociados:{" "}

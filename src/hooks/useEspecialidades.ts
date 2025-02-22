@@ -11,7 +11,7 @@ export const useEspecialidades = () => {
   const [error, setError] = useState({});
   const navigate = useNavigate();
 
-  const createEspecialidades = async (newEspecialidad: { descripcion: string }) => {
+  const createEspecialidades = async (newEspecialidad: { detalle: string }) => {
     setIsLoading(true);
     try {
         console.log("Datos a enviar:", newEspecialidad);
@@ -55,8 +55,8 @@ export const useEspecialidades = () => {
 
       if (response.data && response.data.length) {
         const documents: Especialidad[] = response.data.map((especialidad: Especialidad) => ({
-          id: especialidad.id,
-          descripcion: especialidad.descripcion,
+          idEspecialidad: especialidad.idEspecialidad,
+          detalle: especialidad.detalle,
         
         }));
         setEspecialidades(documents);
@@ -80,7 +80,7 @@ export const useEspecialidades = () => {
         console.log("Datos a actualizar:", formValues);
 
         const response = await turnofacilAPI.put(
-            `${endpoints.especialidades}/${formValues.id}`,
+            `${endpoints.especialidades}/${formValues.idEspecialidad}`,
             JSON.stringify(formValues),
             {
                 headers: {
@@ -91,13 +91,13 @@ export const useEspecialidades = () => {
 
         console.log("Respuesta de actualización:", response);
 
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 204) {
             Swal.fire("Éxito", "Especialidad actualizada correctamente.", "success");
 
-            // Actualizar la lista con la especialidad modificada
+            navigate('/specialties');
             setEspecialidades(prevEspecialidades =>
                 prevEspecialidades.map(especialidad =>
-                    especialidad.id === formValues.id ? formValues : especialidad
+                    especialidad.idEspecialidad === formValues.idEspecialidad ? formValues : especialidad
                 )
             );
         } else {
@@ -123,7 +123,7 @@ export const useEspecialidades = () => {
       if (response.status === 200 || response.status === 204) {
         Swal.fire("Éxito", "Especialidad eliminada correctamente.", "success");
         setEspecialidades(prevEspecialidades => 
-          prevEspecialidades.filter(especialidad => especialidad.id !== especialidadId)
+          prevEspecialidades.filter(especialidad => especialidad.idEspecialidad !== especialidadId)
         );
       } else {
         Swal.fire("Atención", "No se pudo eliminar la especialidad.", "warning");

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import { CustomButtonProps } from '../../types';
 
+
 export const ButtonCustom = ({
   variant = 'contained',
   color = 'primary',
@@ -9,7 +10,13 @@ export const ButtonCustom = ({
   onClick,
   children,
   sx,
+  to,
+  component,
+  
 }: CustomButtonProps) => {
+  const Component = component || 'button';
+
+
   return (
     <Button
       variant={variant}
@@ -17,6 +24,8 @@ export const ButtonCustom = ({
       startIcon={startIcon}
       endIcon={endIcon}
       onClick={onClick}
+      to={to}
+      component={Component}
       sx={{
         borderRadius: '30px',
         paddingLeft: '30px',

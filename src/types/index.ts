@@ -1,3 +1,5 @@
+
+
 export interface SideBarProps {
     drawerWidth: number;
     open: boolean;
@@ -37,9 +39,9 @@ export interface ColumnProps {
     align: 'inherit' | 'left' | 'center' | 'right' | 'justify';
 }
 export interface Especialidad {
-    id: string;
-    descripcion: string;
-
+    idEspecialidad?: string;
+    detalle: string;
+    medicos?:Medicos[];
   };
 
   export interface EspecialidadState {
@@ -48,17 +50,20 @@ export interface Especialidad {
   }
 
  export interface CustomButtonProps {
+    to?: string;
     type?: 'submit' | 'reset' | 'button';
     disabled?: boolean;
     variant?: 'contained' | 'outlined';
     color?: 'primary' | 'secondary' | 'error' | 'warning' | 'success';
     startIcon?: React.ReactNode;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void ;
-    //onClickSumbit?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     children: React.ReactNode;
     sx?: unknown; 
     endIcon?: React.ReactNode;
+   component?: React.ElementType;
   };
+
+  
 export interface Horario {
     id: string;
     medicos: string[];  
@@ -80,38 +85,44 @@ export interface Servicio {
     precio: number;
 };
 
-export interface User {
-    id?: string;
-    nombre: string;
-    apellido: string;
-    dni: string;
-    email: string;
-    fechaNac: string;
-    telefono: string;
-    direccion: string;
-    rol: {
-        nombre: string;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        usuarios: any[];
-    }
-   
-    
-};
+export type User = Medicos | PacienteRegister;
 
 
 
 
-export interface UserRegister extends User {
-    password: string;
-    confirmPassword?: string;
-    obraSocial: boolean;
-    activo: true;
+export interface PacienteRegister  {
+   idPaciente: string,
+  nombre: string,
+  apellido: string,
+  dni: string,
+  email: string,
+  fechaNacimiento: string,
+  telefono: string,
+  direccion: string,
+  password: string,
+  idRol: number,
+  obraSocial: boolean,
+  confirmPassword?:string;
   }
   
-export interface Medicos extends User {
-    especialidadId: number;
-    sueldo: number;
-    activo: boolean;
+export interface Medicos  {
+  idMedico: string,
+  nombre: string,
+  apellido: string,
+  dni: string,
+  email: string,
+  fechaNacimiento: string,
+  telefono: string,
+  direccion: string,
+  password: string,
+  idRol: number,
+  idEspecialidad: string | null,
+  sueldo: number;
+  }
+
+  export interface MedicosState {
+    medicosActive: Medicos| null;
+    Medicos: Medicos[];
   }
 
 export interface AuthState {
@@ -119,7 +130,7 @@ export interface AuthState {
     user: User | null;
     errorMessage: string;
     isLoading: boolean;
-};
+ };
 
 export interface NavBarProps {
     drawerWidth: number;

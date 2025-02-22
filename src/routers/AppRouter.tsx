@@ -2,29 +2,31 @@ import { PublicRoutes } from './PublicRoutes.tsx';
 import { PrivateRoutes } from './PrivateRoutes.tsx';
 import { Loading } from '../componentes/Loading';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useAuthStore } from '../hooks/useAuthStore.tsx';
 
 export const AppRouter: React.FC = () => {
-  const { status } = useAuthStore();  // Obtenemos el estado de autenticación
+  const { status, checkAuthToken } = useAuthStore();
+
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
 
   // Muestra un componente de carga si el estado es 'checking'
   if (status === 'checking') {
-    return <Loading key="loading-checking-routers" loading />;
+    return <Loading key="loading-auth" loading />;
   }
 
   return (
     <Routes>
       {
-        // Si está autenticado, renderiza las rutas privadas
+       
         (status === 'authenticated')
-          ? <Route path="/*" element={<PrivateRoutes />} />
-          // Si no está autenticado, renderiza las rutas públicas
-          : <Route path="/*" element={<PublicRoutes />} />
-      }
-      
-      {/* Si no coincide con ninguna ruta, redirige al login */}
+          ? <Route path="/*" element={<PrivateRoutes />} /> : <Route path="/*" element={<PublicRoutes />} />
+      } 
       <Route path='*' element={<Navigate to='/login' />} />
+      {/* <Route path="/*" element={<PrivateRoutes />} />  */}
+
     </Routes>
   );
 };
