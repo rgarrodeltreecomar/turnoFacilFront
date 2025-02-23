@@ -6,11 +6,13 @@ export const TitleText = ({
   align,
   startIcon,
   endIcon,
+  children,
 }: {
-  text: string;
+  text?: string;
   align: "left" | "center" | "right";
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  children?: ReactNode;
 }) => {
 
   const getJustify = (align: "left" | "center" | "right") => {
@@ -24,15 +26,16 @@ export const TitleText = ({
       variant="h4"
       gutterBottom
       sx={{
-        textAlign: align, // Asegura que el texto dentro respete la alineación
+        textAlign: align, 
         display: "flex",
         alignItems: "center",
         justifyContent: getJustify(align),
-        gap: 1, // Espacio entre el ícono y el texto
+        gap: 1, 
       }}
     >
       {startIcon}
       <span>{text}</span>
+      {children}
       {endIcon}
     </Typography>
   );

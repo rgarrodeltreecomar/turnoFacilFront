@@ -163,8 +163,8 @@ export const SideBar: React.FC<SideBarProps> = ({
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={RouterLink}
-                to="/schedules/new"
-                selected={pathname.includes("/schedules/new")}
+                to="/schedules"
+                selected={pathname.includes("/schedules")}
               >
                 <ListItemIcon>
                   <AccessTimeIcon/>

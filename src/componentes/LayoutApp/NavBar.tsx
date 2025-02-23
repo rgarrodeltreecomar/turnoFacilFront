@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAuthStore } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { styled, keyframes } from '@mui/system'
 import {
@@ -14,6 +14,7 @@ import { MenuOutlined, ExitToApp } from '@mui/icons-material';
 import { avatarImage } from '../AvatarImage/AvatarImage';
 import { NavBarProps } from '../../types';
 
+
 export const NavBar: React.FC<NavBarProps> = ({
   drawerWidth = 240,
   open,
@@ -21,6 +22,11 @@ export const NavBar: React.FC<NavBarProps> = ({
 }) => {
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
+  const {startLogout} = useAuthStore();
+
+  const handleLogout = () => {
+    startLogout()
+  }
 
   const backgroundPulse = keyframes({
     '0%': {
@@ -111,6 +117,7 @@ export const NavBar: React.FC<NavBarProps> = ({
             edge="end"
             color="inherit"
             aria-label="logout"
+            onClick={handleLogout}
             sx={{
               '&:hover': {
                 color: '#1976d2',

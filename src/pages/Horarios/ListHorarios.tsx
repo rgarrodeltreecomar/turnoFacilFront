@@ -12,50 +12,47 @@ import {
   Paper,
 } from '@mui/material'
 import {
-  PersonAddAlt as  PersonAddAltIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
 } from '@mui/icons-material'
-import { useAppDispatch, useForm, useMedicos } from '../../hooks'
-import { setMedicosActive } from '../../redux/medicos'
+import { useAppDispatch, useForm, useHorarios} from '../../hooks'
+import { setHorarioActive } from '../../redux/horarios'
 import {
   ButtonCustom,
   DashboardTable,
-  DoctorIcon,
+  HoraIcon,
   ItemRow,
   Loading,
   SearchButton,
   SearchInput,
   TableCellStyled,
 } from '../../componentes'
-import { ColumnProps, Medicos } from '../../types'
+import { ColumnProps, Horarios } from '../../types'
 import { TitleText } from '../../componentes'
 
 const columns: ColumnProps[] = [
-  { text: 'Nomrbe', align: 'left' },
-  { text: 'Apellido', align: 'center' },
-  { text: 'Email', align: 'center' },
-  { text: 'Sueldo', align: 'center' },
+  { text: 'Inicio', align: 'left' },
+  { text: 'Fin', align: 'center' },
   
 ]
 
-export const ListMedicos: React.FC = () => {
+export const ListHorarios: React.FC = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const {
     isLoading,
-    medicos,
-    getMedicos,
-    deleteMedicos,
-  } = useMedicos()
+    horarios,
+    getHorarios,
+    deleteHora,
+  } = useHorarios()
 const { filterText, handleInputChange } = useForm({ filterText: "" });
 
   const filterMenuModules = (
-    medicos: Medicos[],
+    horarios: Horarios[],
     filterText: string,
-  ): Medicos[] => {
-    const filteredBySearch = medicos.filter(( medicos) =>
-      matchesFilter( medicos, filterText),
+  ):  Horarios[] => {
+    const filteredBySearch =  horarios.filter((horarios) =>
+      matchesFilter( horarios, filterText),
     )
     return filteredBySearch
   }
@@ -67,13 +64,11 @@ const { filterText, handleInputChange } = useForm({ filterText: "" });
       .toLowerCase()
   }
 
-  const matchesFilter = (medicos:  Medicos, filter: string) => {
+  const matchesFilter = (horario: Horarios, filter: string) => {
     const normalizedFilter = normalizeText(filter)
     const searchableFields = [
-        medicos.nombre,
-        medicos.apellido,
-        medicos.email,
-        medicos.telefono,
+        horario.horarioInicio,
+        horario.horarioFin,
     ]
 
     return searchableFields.some((field) =>
@@ -92,28 +87,22 @@ const loge = () => {
     console.log("Es un log")
   }
 
-  const onClickUpdateMedicos = (item: Medicos) => {
-    console.log('Item ID:', item.idMedico)
-    dispatch(setMedicosActive(item))
-    navigate(`/doctors/${item.idMedico}`)
-  }
+  const onClickUpdateHorario = (item: Horarios) => {
+    dispatch(setHorarioActive(item));
+    navigate(`/schedules/${item.idHorario}`); 
+  };
 
-  // const handleDeleteMedicos = (item: Medicos) => {
-  //   if (item.idMedico ) {
-  //     deleteMedicos(item.idMedico)
-  //     getMedicos()
-  //   }
-  // }
 
-  const handleDeleteMedicos = async (item: Medicos) => {
-    if (item.idMedico) {
-      await deleteMedicos(item.idMedico); 
-      await getMedicos(); 
+
+  const handleDeleteHorario = async (item: Horarios) => {
+    if (item.idHorario) {
+      await deleteHora(item.idHorario); 
+      await getHorarios(); 
     }
   }
 
   useEffect(() => {
-    getMedicos()
+    getHorarios()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -122,12 +111,12 @@ const loge = () => {
       {isLoading && <Loading loading />}
        <Container maxWidth="md" sx={{ mb: 4 }}>
       
-         <TitleText text="Medicos" startIcon={ <DoctorIcon sx={{ fontSize: 30, color: "primary.main" }} />} align="center" />
+         <TitleText text="Mis Horarios" startIcon={ <HoraIcon whiteBorder sx={{ fontSize: 30, color: "primary.main" }} />} align="center" />
                 <Grid container justifyContent="flex-end">
                        <Grid item xs={8} sm={9.0}>
                          <SearchInput
                            value={filterText}
-                           placeholder="Medicos"
+                           placeholder="Horarios"
                            handleInputChange={handleInputChange}
                          />
                        </Grid>
@@ -141,33 +130,16 @@ const loge = () => {
                 variant="contained"
                 color="primary"
                 component={RouterLink}
-                to="/doctors/new"
-                startIcon={< PersonAddAltIcon />}
+                to="/schedules/new"
+                startIcon={< HoraIcon whiteBorder />}
                 sx={{ mb: 2 }}
               >
                 Nuevo
               </ButtonCustom>
-         
-            {/* <Grid item xs={12} sm={10}>
-               <Grid container justifyContent="flex-end">
-                  <Grid item xs={8} sm={9.0}>
-                    <SearchInput
-                      value={filterText}
-                      placeholder="Especialidad"
-                      handleInputChange={handleInputChange}
-                    />
-                  </Grid>
-                  <Grid item xs={4} sm={3}>
-                    <SearchButton text="Buscar" 
-                  onClick={() => loge()}
-                     />
-                  </Grid>
-                  </Grid>
-            </Grid> */}
           </Grid>
           <Box component="div" sx={{ p: 1 }}>
             <TableContainer
-              key="table-medicos"
+              key="table-horarios"
               sx={{
                 minHeight: '120px',
                 maxHeight: '540px',
@@ -177,35 +149,29 @@ const loge = () => {
               component={Paper}
             >
               <DashboardTable
-                key="datatable-medicos"
+                key="datatable-horarios"
                 columns={columns}
                 isLoading={isLoading}
               >
-                {filterMenuModules(medicos, filterText).map((row) => (
-                  <ItemRow key={row.idMedico} hover>
-                    <TableCellStyled align="left">{row.nombre}</TableCellStyled>
+                {filterMenuModules(horarios, filterText).map((row) => (
+                  <ItemRow key={row.idHorario} hover>
+                    <TableCellStyled align="left">{row.horarioInicio}</TableCellStyled>
                     <TableCellStyled align="center">
-                      {row.apellido}
+                      {row.horarioFin}
                     </TableCellStyled>
-                    
-                    <TableCellStyled align="center">
-                      {row.email}
-                    </TableCellStyled>
-                    <TableCellStyled align="center">
-                      {row.sueldo}
-                    </TableCellStyled>{' '}
+                      {' '}
                     <TableCellStyled align="right">
                       <Tooltip title="Editar">
                         <IconButton
                           aria-label="Editar"
-                          onClick={() => onClickUpdateMedicos(row)}
+                          onClick={() => onClickUpdateHorario(row)}
                         >
                           <EditIcon />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Eliminar">
                         <IconButton
-                          onClick={() => handleDeleteMedicos(row)}
+                          onClick={() => handleDeleteHorario(row)}
                           style={{ fontSize: '1rem' }}
                           color="default"
                         >

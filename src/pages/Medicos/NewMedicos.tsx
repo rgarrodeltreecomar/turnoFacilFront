@@ -101,7 +101,7 @@ export const NewMedicos: React.FC = () => {
     } else {
       setFormValues((prevForm) => ({
         ...prevForm,
-        idEspecialidad: null,
+        especialidades,
       }));
     }
   };

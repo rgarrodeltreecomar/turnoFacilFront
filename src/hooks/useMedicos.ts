@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useDispatch } from "react-redux";
 import { useState} from 'react';
 import { turnofacilAPI, endpoints } from '../services/turnofacilAPI'
 import { Medicos } from '../types';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
+
 import {
     finishLoading,
     startLoading,
@@ -27,10 +29,10 @@ export const useMedicos = () => {
         console.log("Datos a enviar (JSON):", datosJSON);
 
 
-        const response = await turnofacilAPI.post(endpoints.medicos, medicData);
+        const response = await turnofacilAPI.post(endpoints. medicosRegister, medicData);
 
 
-        if (response.status === 201) {
+        if (response.status === 201 || response.status === 204) {
             dispatch(finishLoading()); 
             Swal.fire("Éxito", "Alta de Mededico creada correctamente.", "success");
             navigate('/doctors');
@@ -120,31 +122,68 @@ const getMedicos = async () => {
 };
 
 
+  // const deleteMedicos = async (medicosId: string) => {
+  //   setIsLoading(true);
+  //   try {
+  //     console.log(`Eliminando especialidad con ID: ${medicosId}`);
+  //     const response = await turnofacilAPI.delete(`${endpoints.medicos}/${medicosId}`);
+  
+  //     console.log("Respuesta de eliminación:", response);
+  
+  //     if (response.status === 200 || response.status === 204) {
+  //       Swal.fire("Éxito", "Medico eliminado correctamente.", "success");
+  //       setMedicos(prevMedicos => 
+  //         prevMedicos.filter(medico => medico.idMedico !== medicosId)
+  //       );
+  //     } else {
+  //       Swal.fire("Atención", "No se pudo eliminar el medico.", "warning");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al eliminar Medico:", error);
+  //     Swal.fire("Error", "Hubo un problema al eliminar el medico.", "error");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+  
   const deleteMedicos = async (medicosId: string) => {
     setIsLoading(true);
     try {
-      console.log(`Eliminando especialidad con ID: ${medicosId}`);
+      console.log('[DELETE] Iniciando eliminación para médico ID:', medicosId);
+      console.log('[DELETE] URL:', `${endpoints.medicos}/${medicosId}`);
+  
       const response = await turnofacilAPI.delete(`${endpoints.medicos}/${medicosId}`);
   
-      console.log("Respuesta de eliminación:", response);
+      console.log("[DELETE] Respuesta completa:", response);
+      console.log("[DELETE] Estado HTTP:", response.status);
+      console.log("[DELETE] Datos de respuesta:", response.data);
   
       if (response.status === 200 || response.status === 204) {
-        Swal.fire("Éxito", "Medico eliminado correctamente.", "success");
-        setMedicos(prevMedicos => 
-          prevMedicos.filter(medico => medico.idMedico !== medicosId)
-        );
+        console.log('[DELETE] Eliminación exitosa, actualizando estado local...');
+        Swal.fire("Éxito", "Médico eliminado correctamente.", "success");
+        
+        setMedicos(prevMedicos => {
+          const nuevosMedicos = prevMedicos.filter(medico => medico.idMedico !== medicosId);
+          console.log('[DELETE] Estado después de filtrar:', nuevosMedicos);
+          return nuevosMedicos;
+        });
+  
       } else {
-        Swal.fire("Atención", "No se pudo eliminar el medico.", "warning");
+        console.warn('[DELETE] Respuesta inesperada:', response);
+        Swal.fire("Atención", "No se pudo eliminar el médico.", "warning");
       }
-    } catch (error) {
-      console.error("Error al eliminar Medico:", error);
-      Swal.fire("Error", "Hubo un problema al eliminar el medico.", "error");
+    } catch (error: any) {
+      console.error("[DELETE] Error completo:", error);
+      console.error("[DELETE] Respuesta de error:", error?.response?.data);
+      console.error("[DELETE] Estado HTTP de error:", error?.response?.status);
+      
+      Swal.fire("Error", error.response?.data?.message || "Hubo un problema al eliminar el médico.", "error");
     } finally {
       setIsLoading(false);
     }
   };
   
-  
+ 
 
   return {
     //* Propiedades

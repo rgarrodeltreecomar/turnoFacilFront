@@ -5,6 +5,7 @@ import { uiSlice } from "./ui";
 import { authSlice } from "./auth";
 import { especialidadSlice } from "./especialidades";
 import { medicosSlice } from "./medicos";
+import { horariosSlice } from "./horarios";
 
 
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     auth: authSlice.reducer,
     especialidad: especialidadSlice.reducer,
     medico: medicosSlice.reducer,
+    horarios: horariosSlice.reducer,
   }
 });
 

@@ -8,4 +8,5 @@ export * from './SearchBar/SearchBar';
 export * from './SearchButton/SearchButton';
 export * from './TitleText/TitleText';
 export * from './DashboardTable/DashboardTable';
-export * from './DoctorIcon/DoctorIcon';
+export * from './AbmIcons/DoctorIcon/DoctorIcon';
+export * from './AbmIcons/HoraIcon/HoraIcon';

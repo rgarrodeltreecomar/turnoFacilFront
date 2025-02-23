@@ -14,7 +14,7 @@ import { Alert, Checkbox, FormLabel } from '@mui/material';
 import { onLogout } from '../../redux/auth';
 import { avatarImage, ButtonCustom, Loading, TitleText  } from '../../componentes';
  import { Copyright } from '@mui/icons-material';
-import { PacienteRegister } from '../../types';
+import { Paciente } from '../../types';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import './registerStyles.scss'
@@ -32,7 +32,7 @@ import './registerStyles.scss'
 // // Regex - Url con protocolo https
 // //const regexUrl = /^(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*))$/;
 
-const initialState: PacienteRegister = {
+const initialState: Paciente = {
   email: '',
   password: '',
   nombre: '',
@@ -144,7 +144,7 @@ const handleSubmit = () => {
   console.log("Se ha presionado el botón de registro");
 
   if (!validatePass()) return;
-  const userRegisterData: PacienteRegister = {
+  const userRegisterData: Paciente = {
     email,
     password,
     nombre,

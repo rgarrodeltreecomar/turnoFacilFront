@@ -24,13 +24,50 @@ export interface Authenticate {
     AccessToken: string;
     ExpiresIn: number;
   }
+
+
+  export interface BaseUser {
+    nombre: string;
+    apellido: string;
+    dni: string;
+    email: string;
+    fechaNacimiento: string;
+    telefono: string;
+    direccion: string;
+    password: string;
+    idRol: number;
+  }
   
+  export interface Admin extends BaseUser {
+    idUsuario: string;
+  }
+  
+  export interface Medicos extends BaseUser {
+    idMedico: string;
+    idEspecialidad: string;
+    sueldo: number;
+  }
+  
+  export interface Paciente extends BaseUser {
+    idPaciente: string;
+    obraSocial: boolean;
+    confirmPassword?: string;
+  }
+  
+  export type User = Admin | Medicos | Paciente;
+  
+  export interface Authenticate {
+    accessToken: string;
+    refreshToken: string;
+    expiration: number;
+  }
 
   export interface ErrorResponseAuth {
     code:
     | "UserNotConfirmedException"
     | "NotAuthorizedException"
-    | "UsernameExistsException";
+    | "UsernameExistsException"
+    | "InvalidRoleException"; 
     message: string;
   }
 
@@ -43,11 +80,21 @@ export interface Especialidad {
     detalle: string;
     medicos?:Medicos[];
   };
-
   export interface EspecialidadState {
     especialidadActive: Especialidad | null;
     Especialidad: Especialidad[];
   }
+
+export interface Horarios {
+    idHorario?: string;
+    horarioInicio: string;
+    horarioFin: string;
+}
+
+export interface HorariosState {
+  horariosActive: Horarios| null;
+  Horarios: Horarios[];
+}
 
  export interface CustomButtonProps {
     to?: string;
@@ -64,12 +111,7 @@ export interface Especialidad {
   };
 
   
-export interface Horario {
-    id: string;
-    medicos: string[];  
-    dia: string;        
-    activo: boolean;
-  };
+
 
 export interface Paquete {
     id: string;
@@ -85,40 +127,8 @@ export interface Servicio {
     precio: number;
 };
 
-export type User = Medicos | PacienteRegister;
 
 
-
-
-export interface PacienteRegister  {
-   idPaciente: string,
-  nombre: string,
-  apellido: string,
-  dni: string,
-  email: string,
-  fechaNacimiento: string,
-  telefono: string,
-  direccion: string,
-  password: string,
-  idRol: number,
-  obraSocial: boolean,
-  confirmPassword?:string;
-  }
-  
-export interface Medicos  {
-  idMedico: string,
-  nombre: string,
-  apellido: string,
-  dni: string,
-  email: string,
-  fechaNacimiento: string,
-  telefono: string,
-  direccion: string,
-  password: string,
-  idRol: number,
-  idEspecialidad: string | null,
-  sueldo: number;
-  }
 
   export interface MedicosState {
     medicosActive: Medicos| null;

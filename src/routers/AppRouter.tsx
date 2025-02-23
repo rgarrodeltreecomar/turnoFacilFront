@@ -3,7 +3,7 @@ import { PrivateRoutes } from './PrivateRoutes.tsx';
 import { Loading } from '../componentes/Loading';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import React, { useEffect } from 'react';
-import { useAuthStore } from '../hooks/useAuthStore.tsx';
+import { useAuthStore } from '../hooks/useAuthStore.ts';
 
 export const AppRouter: React.FC = () => {
   const { status, checkAuthToken } = useAuthStore();

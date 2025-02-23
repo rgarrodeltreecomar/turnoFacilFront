@@ -5,3 +5,5 @@ export * from './Especialidades/ListEspecialidades';
 export * from './Especialidades/NewEspecialidades';
 export * from './Medicos/ListMedicos';
 export * from './Medicos/NewMedicos';
+export * from './Horarios/ListHorarios';
+export * from './Horarios/NewHorarios';
