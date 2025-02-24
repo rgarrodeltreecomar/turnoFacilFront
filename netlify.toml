@@ -24,3 +24,8 @@
   VITE_API_TURNOS_CREAR = "/Turnos/crear"
   VITE_API_TURNOS_RESERVAR = "/Turnos/reservar"
   VITE_API_TURNOS_CANCELAR = "/Turnos/cancelar"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
