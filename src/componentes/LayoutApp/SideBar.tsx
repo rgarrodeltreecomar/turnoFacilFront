@@ -17,30 +17,14 @@ import {
   AccessTime as AccessTimeIcon,
   MonitorHeart as MonitorHeartIcon,
   AddModerator as AddModeratorIcon,
-  // //SyncAlt as SyncAltIcon,
-  // QueryStats as QueryStatsIcon,
-  // Transform as TransformIcon,
-  // Agriculture as AgricultureIcon,
- // AddLocationAlt as AddLocationAltIcon,
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon,
-  //Security as SecurityIcon,
   MedicalServices as MedicalServicesIcon,
-  //Gite as GiteIcon,
-  //Work as WorkIcon,
   Person as PersonAddIcon,
-  //Assignment as AssignmentIcon,
- // Map as MapIcon,
- // BusinessCenter as BusinessCenterIcon,
- // FireTruck as FireTruckIcon,
-//   CorporateFare as CorporateFareIcon,
-//   Description as DescriptionIcon,
-//  // ForwardToInbox as ForwardToInboxIcon,
-//   //LocationOn as LocationOnIcon,
-//   //Handshake as HandshakeIcon,
- MonetizationOn as MonetizationOnIcon,
+  MonetizationOn as MonetizationOnIcon,
   Dashboard as DashboardIcon,
   PersonSearch as PersonSearchIcon,
+  PendingActions as  PendingActionsIcon,
 } from "@mui/icons-material";
 
 import { SideBarProps } from "../../types";
@@ -50,7 +34,7 @@ import { useAppSelector } from "../../hooks";
 
 
 
-const keysCollapse = [ "General", "Finanzas"];
+const keysCollapse = [ "General", "Finanzas", "WTF"];
 
 
 
@@ -130,8 +114,8 @@ export const SideBar: React.FC<SideBarProps> = ({
               <ListItemButton
                 sx={{ pl: 4 }}
                 component={RouterLink}
-                to="/specialties"
-                selected={pathname.includes("/specialties")}
+                to="/list-specialties"
+                selected={pathname.includes("/list-specialties")}
               >
                 <ListItemIcon>
                   <MonitorHeartIcon />
@@ -171,9 +155,20 @@ export const SideBar: React.FC<SideBarProps> = ({
                 </ListItemIcon>
                 <ListItemText primary="Disponiblidad" />
               </ListItemButton>
+              <ListItemButton
+                sx={{ pl: 4 }}
+                component={RouterLink}
+                to="/turns"
+                selected={pathname.includes("/turns")}
+              >
+                <ListItemIcon>
+                  < PendingActionsIcon/>
+                </ListItemIcon>
+                <ListItemText primary="Alta de turnos" />
+              </ListItemButton>
             </List>
           </Collapse>
-          <ListItem key="General" disablePadding>
+          <ListItem key="WTF" disablePadding>
             <ListItemButton
               // component={RouterLink}
               // to="/home"

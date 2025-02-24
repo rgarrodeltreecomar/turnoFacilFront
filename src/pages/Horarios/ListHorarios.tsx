@@ -33,7 +33,7 @@ import { TitleText } from '../../componentes'
 const columns: ColumnProps[] = [
   { text: 'Inicio', align: 'left' },
   { text: 'Fin', align: 'center' },
-  
+
 ]
 
 export const ListHorarios: React.FC = () => {
@@ -76,28 +76,26 @@ const { filterText, handleInputChange } = useForm({ filterText: "" });
     )
   }
 
-//   const onClickSearch = () => {
-//     if (filterText === '') {
-//       getMenuModules()
-//       return
-//     }
-//   }
-
-const loge = () => {
-    console.log("Es un log")
+  const onClickSearch = () => {
+    if (filterText === '') {
+      getHorarios()
+      return
+    }
   }
+
+
 
   const onClickUpdateHorario = (item: Horarios) => {
     dispatch(setHorarioActive(item));
-    navigate(`/schedules/${item.idHorario}`); 
+    navigate(`/schedules/${item.idHorario}`);
   };
 
 
 
   const handleDeleteHorario = async (item: Horarios) => {
     if (item.idHorario) {
-      await deleteHora(item.idHorario); 
-      await getHorarios(); 
+      await deleteHora(item.idHorario);
+      await getHorarios();
     }
   }
 
@@ -110,7 +108,7 @@ const loge = () => {
     <>
       {isLoading && <Loading loading />}
        <Container maxWidth="md" sx={{ mb: 4 }}>
-      
+
          <TitleText text="Mis Horarios" startIcon={ <HoraIcon whiteBorder sx={{ fontSize: 30, color: "primary.main" }} />} align="center" />
                 <Grid container justifyContent="flex-end">
                        <Grid item xs={8} sm={9.0}>
@@ -121,7 +119,7 @@ const loge = () => {
                          />
                        </Grid>
                        <Grid item xs={4} sm={3}>
-                         <SearchButton text="Buscar" onClick={() => loge()} />
+                         <SearchButton text="Buscar" onClick={() => onClickSearch()} />
                        </Grid>
                        </Grid>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 2 }, p: { xs: 2, md: 3 } }} >
@@ -185,8 +183,8 @@ const loge = () => {
             </TableContainer>
           </Box>
           </Paper>
-      </Container> 
+      </Container>
     </>
     )
-  
+
 }

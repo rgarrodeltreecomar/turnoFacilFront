@@ -226,6 +226,10 @@ export const useAuthStore = () => {
                 direccion:  decodedToken.direccion || 'Apellido temporal',
                 telefono:  decodedToken.apellido || 'Apellido temporal',
                 fechaNacimiento: decodedToken.apellido || 'Apellido temporal',
+                obrasocial: decodedToken.obraSocial,
+                id: decodedToken.idUsuario,
+                idMedico: decodedToken.idMedico,
+                idPaciente: decodedToken.idPaciente,
                 password: '' // No necesario almacenar
             } as any; // Usamos any temporalmente
 
@@ -259,9 +263,10 @@ const startRegister = async (userData: Paciente) => {
   dispatch(startLoading());
 
   try {
-    const response = await turnofacilAPI.post(endpoints.pacientes, userData);
-
-    if (response.status === 201) {
+    const response = await turnofacilAPI.post(endpoints.pacientesRegister, userData);
+    console.log("url: ",endpoints.pacientesRegister);
+    console.log("Datos: ",userData);
+    if (response.status === 201 ||response.status === 204) {
       localStorage.setItem("username_temp", userData.email);
 
 

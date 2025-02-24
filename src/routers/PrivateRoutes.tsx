@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import {  Route, Routes, useLocation } from "react-router-dom";
 import { AppLayout } from "../componentes/LayoutApp/AppLayout";
-import { Home, Especialidades, NewEspecialidades, ListMedicos, NewMedicos, NewHorarios, ListHorarios } from "../pages";
+import { Home, Especialidades, NewEspecialidades, ListMedicos, NewMedicos, NewHorarios, ListHorarios, ListTurnos, NewTuenos } from "../pages";
 
 //import { ApiButton, Home, UserProfile, ValidateCode } from "../pages";
 
@@ -19,7 +19,7 @@ export const PrivateRoutes: React.FC = () => {
       <Routes>
           <Route path="/home" element={< Home  />} />
 
-          <Route path="/specialties" element={< Especialidades />} />
+          <Route path="/list-specialties" element={< Especialidades />} />
           <Route path="/specialties/new" element={< NewEspecialidades />} />
           <Route path="/specialties/:id" element={< NewEspecialidades />} />
 
@@ -30,6 +30,11 @@ export const PrivateRoutes: React.FC = () => {
           <Route path="/schedules" element={< ListHorarios />} />
           <Route path="/schedules/new" element={< NewHorarios />} />
           <Route path="/schedules/:id" element={< NewHorarios />} />
+
+          <Route path="/turns" element={< ListTurnos />} />
+          <Route path="/turns/new" element={< NewTuenos />} />
+          <Route path="/turns/:id" element={< NewTuenos />} />
+
         </Routes>
     </AppLayout>
   );

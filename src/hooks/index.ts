@@ -6,3 +6,4 @@ export * from './useForm';
 export * from './useFormValid';
 export * from './useMedicos';
 export * from './useHorarios';
+export * from './useTurnos';

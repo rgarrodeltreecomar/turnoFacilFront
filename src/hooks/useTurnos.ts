@@ -1,141 +1,150 @@
-import { useState} from 'react';
-import { turnofacilAPI, endpoints } from '../services/turnofacilAPI'
-import { Horarios } from '../types';
-import Swal from 'sweetalert2'
+import { useState } from 'react';
+import { turnofacilAPI, endpoints } from '../services/turnofacilAPI';
+import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { Turnos } from '../types';
 
-
-export const useHorarios= () => {
-  const [horarios, setHorarios] = useState<Horarios[]>([]);
+export const useTurnos = () => {
+  const [turnos, setTurnos] = useState<Turnos[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
   const navigate = useNavigate();
 
-  const createHorarios = async (newHorarios: Horarios) => {
+  const createTurno = async (newTurno: Turnos) => {
     setIsLoading(true);
     try {
-        console.log("Datos a enviar:", newHorarios);
+      const response = await turnofacilAPI.post(endpoints.turnosCrear, newTurno, {
+        headers: { "Content-Type": "application/json" }
+      });
 
-        const response = await turnofacilAPI.post(endpoints.horarios, newHorarios, {
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-
-        if (response.status === 201 || response.status === 204) {
-            Swal.fire("Éxito", "Horario creado correctamente.", "success");
-            navigate('/schedules/new');
-        } else {
-            Swal.fire("Atención", "No se pudo crear el horario.", "warning");
-        }
-    } catch (error) {
-        console.error("Error al crear horario:", error);
-        
-        Swal.fire("Error", "Hubo un problema al crear el horario.", "error");
-
-    } finally {
-        setIsLoading(false);
-    }
-};
-
-
-
-  const getHorarios = async () => {
-    setIsLoading(true);
-    try {
-      const response = await turnofacilAPI.get(endpoints.horarios);
-
-      setIsLoading(false);
-
-      if (response.data && response.data.length) {
-        const documents:Horarios[] = response.data.map((horarios: Horarios) => ({
-        idHorario: horarios.idHorario,
-        horarioInicio: horarios.horarioInicio,
-        horarioFin: horarios.horarioFin,
-        }));
-        setHorarios(documents);
-      } else {
-        setHorarios([]);
-        Swal.fire('Sin resultados', 'No se encontraron Horarios.', 'info');
+      if (response.status === 201) {
+        Swal.fire("Éxito", "Turno creado correctamente.", "success");
+        navigate('/turns/new');
       }
     } catch (error) {
-        console.log(error)
-        Swal.fire('Error', 'No se encontraron horarios.', 'error');
-        setIsLoading(false);
-        if (error) setError(error);
+      console.error("Error al crear turno:", error);
+      Swal.fire("Error", "Hubo un problema al crear el turno.", "error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const getTurnos = async () => {
+    setIsLoading(true);
+    try {
+      const response = await turnofacilAPI.get(endpoints.turnosDisponibles);
+      
+      if (response.data && response.data.length) {
+        const turnosData: Turnos[] = response.data.map((turno: Turnos) => ({
+          idTurno: turno.idTurno,
+          fecha: turno.fecha,
+          idMedico: turno.idMedico,
+          estado: turno.estado,
+          asistencia: turno.asistencia
+        }));
+        setTurnos(turnosData);
+      } else {
+        setTurnos([]);
+        Swal.fire('Sin resultados', 'No se encontraron turnos.', 'info');
+      }
+    } catch (error) {
+            console.log(error)
+            Swal.fire('Error', 'No se encontraron turnos.', 'error');
+            setIsLoading(false);
+            if (error) setError(error);
+        }finally {
+      setIsLoading(false);
+    }
+  };
 
-
-  const updateHorarios = async (formValues: Horarios) => {
+  const updateTurno = async (formValues: Turnos) => {
     setIsLoading(true);
     try {
       const response = await turnofacilAPI.put(
-        `${endpoints.horarios}/${formValues.idHorario}`,
-        formValues, 
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
+        `${endpoints.turnos}/${formValues.idTurno}`,
+        formValues,
+        { headers: { "Content-Type": "application/json" } }
       );
-  
+
       if (response.status === 200) {
-        // Actualiza el estado local
-        setHorarios(prev => prev.map(h => 
-          h.idHorario === formValues.idHorario ? formValues : h
+        setTurnos(prev => prev.map(t => 
+          t.idTurno === formValues.idTurno ? formValues : t
         ));
-        Swal.fire("Éxito", "Hora actualizada!", "success");
-        navigate('/schedules'); 
+        Swal.fire("Éxito", "Turno actualizado!", "success");
+        navigate('/turns');
       }
     } catch (error) {
       console.error("Error:", error);
-      Swal.fire("Error", "Error al actualizar", "error");
+      Swal.fire("Error", "Error al actualizar el turno", "error");
     } finally {
       setIsLoading(false);
     }
   };
 
-
-  const deleteHora = async (horaId: string) => {
+  const deleteTurno = async (turnoId: string) => {
     setIsLoading(true);
     try {
-      
-      const response = await turnofacilAPI.delete(`${endpoints.horarios}/${horaId}`);
-  
-      console.log("Respuesta de eliminación:", response);
-  
+      const response = await turnofacilAPI.delete(`${endpoints.turnos}/${turnoId}`);
+
       if (response.status === 200 || response.status === 204) {
-        Swal.fire("Éxito", "Hora eliminada correctamente.", "success");
-        setHorarios(prevHorarios=> 
-          prevHorarios.filter(horario => horario.idHorario !== horaId)
-        );
-      } else {
-        Swal.fire("Atención", "No se pudo eliminar la hora.", "warning");
+        Swal.fire("Éxito", "Turno eliminado correctamente.", "success");
+        setTurnos(prev => prev.filter(t => t.idTurno !== turnoId));
       }
     } catch (error) {
-      console.error("Error al eliminar Hora:", error);
-      Swal.fire("Error", "Hubo un problema al eliminar la hora.", "error");
+      console.error("Error al eliminar turno:", error);
+      Swal.fire("Error", "Hubo un problema al eliminar el turno.", "error");
     } finally {
       setIsLoading(false);
     }
   };
-  
-  
+
+  const reserveTurno = async (turnoData: { idTurno: string, idPaciente: string }) => {
+    setIsLoading(true);
+    try {
+      const response = await turnofacilAPI.post(endpoints.turnosReservar, turnoData);
+      
+      if (response.status === 200) {
+        Swal.fire("Éxito", "Turno reservado correctamente", "success");
+        getTurnos(); 
+      }
+    } catch (error) {
+      console.error("Error al reservar turno:", error);
+      Swal.fire("Error", "No se pudo reservar el turno", "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const cancelTurno = async (turnoId: string) => {
+    setIsLoading(true);
+    try {
+      const response = await turnofacilAPI.post(endpoints.turnosCancelar, { idTurno: turnoId });
+      
+      if (response.status === 200) {
+        Swal.fire("Éxito", "Turno cancelado correctamente", "success");
+        getTurnos(); 
+      }
+    } catch (error) {
+      console.error("Error al cancelar turno:", error);
+      Swal.fire("Error", "No se pudo cancelar el turno", "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return {
     //* Propiedades
     error,
     isLoading,
-    horarios,
+    turnos,
 
     //* Métodos
-   createHorarios,
-    getHorarios,
-    setHorarios,
-    updateHorarios,
-    deleteHora,
-}
+    createTurno,
+    getTurnos,
+    setTurnos,
+    updateTurno,
+    deleteTurno,
+    reserveTurno,
+    cancelTurno
+  };
 };

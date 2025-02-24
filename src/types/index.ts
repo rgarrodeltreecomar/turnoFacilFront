@@ -96,6 +96,23 @@ export interface HorariosState {
   Horarios: Horarios[];
 }
 
+export interface Turnos {
+  idTurno: string;
+  idHorario: string;
+  idMedico: string;
+  fecha: string;
+  asistencia: boolean;
+  idPaciente?: string;
+  estado: string;
+  horario?: Horarios[];
+  medico?: Medicos[];
+  paciente?: Paciente[];
+}
+
+export interface TurnosState {
+  turnosActive: Turnos| null;
+  Turnos: Turnos[];
+}
  export interface CustomButtonProps {
     to?: string;
     type?: 'submit' | 'reset' | 'button';

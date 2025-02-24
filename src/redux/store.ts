@@ -6,6 +6,7 @@ import { authSlice } from "./auth";
 import { especialidadSlice } from "./especialidades";
 import { medicosSlice } from "./medicos";
 import { horariosSlice } from "./horarios";
+import { turnosSlice } from "./turnos";
 
 
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     especialidad: especialidadSlice.reducer,
     medico: medicosSlice.reducer,
     horarios: horariosSlice.reducer,
+    turnos: turnosSlice.reducer,
   }
 });
 

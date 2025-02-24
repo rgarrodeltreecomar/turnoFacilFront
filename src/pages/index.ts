@@ -7,3 +7,5 @@ export * from './Medicos/ListMedicos';
 export * from './Medicos/NewMedicos';
 export * from './Horarios/ListHorarios';
 export * from './Horarios/NewHorarios';
+export * from './Turnos/ListTurnos';
+export * from './Turnos/NewTurnos';

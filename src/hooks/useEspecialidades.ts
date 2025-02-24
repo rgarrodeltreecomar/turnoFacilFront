@@ -30,7 +30,7 @@ export const useEspecialidades = () => {
 
         if (response.status === 201) {
             Swal.fire("Éxito", "Especialidad creada correctamente.", "success");
-            navigate('/specialties');
+            navigate('/list-specialties');
         } else {
             Swal.fire("Atención", "No se pudo crear la especialidad.", "warning");
         }
@@ -94,7 +94,7 @@ export const useEspecialidades = () => {
         if (response.status === 200 || response.status === 204) {
             Swal.fire("Éxito", "Especialidad actualizada correctamente.", "success");
 
-            navigate('/specialties');
+            navigate('/list-specialties');
             setEspecialidades(prevEspecialidades =>
                 prevEspecialidades.map(especialidad =>
                     especialidad.idEspecialidad === formValues.idEspecialidad ? formValues : especialidad
