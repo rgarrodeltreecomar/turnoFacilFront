@@ -1,0 +1,26 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  VITE_API_BASE_URL = "https://turno-facil-backend.onrender.com/api"
+  VITE_API_ESPECIALIDADES = "/Especialidades"
+  VITE_API_MEDICOS = "/Medicos"
+  VITE_API_PACIENTES = "/Pacientes"
+  VITE_API_CONSULTAS = "/Consultas"
+  VITE_API_HORARIOS = "/Horarios"
+  VITE_API_FACTURACION = "/Facturacion"
+  VITE_API_CITAS = "/CitasMedicas"
+  VITE_API_PAQUETES = "/Paquetes"
+  VITE_API_SERVICIOS = "/Servicios"
+
+  VITE_API_REGISTRO = "/Register"
+  VITE_API_LOGIN = "/Register/login"
+  VITE_API_REGISTRO_MEDICO = "/Register/register-medico"
+  VITE_API_REGISTRO_PACIENTE = "/Register/register-paciente"
+
+  VITE_API_TURNOS = "/Turnos"
+  VITE_API_TURNOS_DISPONIBLES = "/Turnos/disponibles"
+  VITE_API_TURNOS_CREAR = "/Turnos/crear"
+  VITE_API_TURNOS_RESERVAR = "/Turnos/reservar"
+  VITE_API_TURNOS_CANCELAR = "/Turnos/cancelar"
