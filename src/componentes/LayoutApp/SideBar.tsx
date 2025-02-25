@@ -30,7 +30,7 @@ import {
 import { DisponibilidadIcon } from '../../componentes';
 import { SideBarProps } from "../../types";
 import { useState } from "react";
-import { useAppSelector } from "../../hooks";
+//import { useAppSelector } from "../../hooks";
 
 export const SideBar: React.FC<SideBarProps> = ({
   drawerWidth,
@@ -39,7 +39,7 @@ export const SideBar: React.FC<SideBarProps> = ({
 }) => {
   const [openCollapse, setOpenCollapse] = useState('');
   const { pathname } = useLocation();
-  const { user } = useAppSelector((state) => state.auth);
+ // const { user } = useAppSelector((state) => state.auth);
 
   const onClickMenu = (collapse: string) => setOpenCollapse(collapse === openCollapse ? "" : collapse);
 
@@ -81,7 +81,7 @@ export const SideBar: React.FC<SideBarProps> = ({
               </ListItemButton>
 
              
-                <>
+           
                   <ListItemButton sx={{ pl: 4 }} component={RouterLink} to="/admin/list-specialties" selected={pathname.includes("/admin/list-specialties")}>
                     <ListItemIcon>
                       <MonitorHeartIcon />
@@ -100,10 +100,10 @@ export const SideBar: React.FC<SideBarProps> = ({
                     </ListItemIcon>
                     <ListItemText primary="Nueva Especialidad" />
                   </ListItemButton>
-                </>
+           
          
-              {user?.idRol === 2 && (
-                <>
+           
+              
                   <ListItemButton sx={{ pl: 4 }} component={RouterLink} to="/doctors/schedules" selected={pathname.includes("/doctors/schedules")}>
                     <ListItemIcon>
                       <AccessTimeIcon />
@@ -116,16 +116,16 @@ export const SideBar: React.FC<SideBarProps> = ({
                     </ListItemIcon>
                     <ListItemText primary="Alta de turnos" />
                   </ListItemButton>
-                </>
-              )}
-              {user?.idRol === 3 && (
+               
+             
+             
                 <ListItemButton sx={{ pl: 4 }} component={RouterLink} to="/patient/search-turns" selected={pathname.includes("/patient/search-turns")}>
                   <ListItemIcon>
                     <DisponibilidadIcon />
                   </ListItemIcon>
                   <ListItemText primary="Buscar turnos" />
                 </ListItemButton>
-              )}
+              
             </List>
           </Collapse>
 

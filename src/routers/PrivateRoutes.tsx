@@ -2,18 +2,18 @@ import React, { useMemo } from "react";
 import { Route, Routes, useLocation, Navigate } from "react-router-dom";
 import { AppLayout } from "../componentes/LayoutApp/AppLayout";
 import { Home, Especialidades, NewEspecialidades, ListMedicos, NewMedicos, NewHorarios, ListHorarios, ListTurnos, NewTuenos, TurnosDisponibles } from "../pages";
-import { useAppSelector } from "../hooks"; 
+//import { useAppSelector } from "../hooks"; 
 
 export const PrivateRoutes: React.FC = () => {
-  const { user } = useAppSelector(state => state.auth); 
+  //const { user } = useAppSelector(state => state.auth); 
   const { pathname, search } = useLocation();
 
   const lastPath = useMemo(() => pathname + search, [pathname, search]);
   localStorage.setItem("lastPath_bo", lastPath);
 
-  if (!user) {
-    return <Navigate to="/login" />;
-  }
+  // if (!user) {
+  //   return <Navigate to="/login" />;
+  // }
 
   return (
     <AppLayout key="app-layout">
@@ -34,8 +34,7 @@ export const PrivateRoutes: React.FC = () => {
 
 
 
-        {user.idRol === 2 && (
-          <>
+    
             <Route path="/doctors/schedules" element={<ListHorarios />} />
             <Route path="/doctors/schedules/new" element={<NewHorarios />} />
             <Route path="/doctors/schedules/:id" element={<NewHorarios />} />
@@ -43,15 +42,13 @@ export const PrivateRoutes: React.FC = () => {
             <Route path="/doctors/turns" element={<ListTurnos />} />
             <Route path="/doctors/turns/new" element={<NewTuenos />} />
             <Route path="/doctors/turns/:id" element={<NewTuenos />} />
-          </>
-        )}
+         
+      
 
     
-        {user.idRol === 3 && (
-          <>
+        
             <Route path="/patient/search-turns" element={<TurnosDisponibles />} />
-          </>
-        )}
+        
 
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
