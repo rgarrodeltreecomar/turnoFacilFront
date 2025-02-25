@@ -193,11 +193,11 @@ export const useAuthStore = () => {
   
 
   const startLogin = async ({ email, password }: UserLogin) => {
-    console.log('[Login] Iniciando proceso con:', { email: email.slice(0, 3) + '...' });
+   
     dispatch(startLoading());
     
     try {
-        console.log('[Login] Enviando solicitud a:', endpoints.login);
+        
         const response = await turnofacilAPI.post<string>(
             endpoints.login,
             { email, password }
@@ -207,7 +207,7 @@ export const useAuthStore = () => {
             const accessToken = response.data;
             const decodedToken = jwtDecode<JwtPayload>(accessToken);
             
-            // Mapeo de roles simplificado
+     
             const rolesMap: { [key: string]: number } = {
                 'Administrador': 1,
                 'Médico': 2,
@@ -216,7 +216,7 @@ export const useAuthStore = () => {
 
             const rolNumerico = rolesMap[decodedToken.rol] || 0;
 
-            // Usuario mínimo viable
+          
             const user: User = {
                 email: decodedToken.email,
                 idRol: rolNumerico,
@@ -230,8 +230,8 @@ export const useAuthStore = () => {
                 id: decodedToken.idUsuario,
                 idMedico: decodedToken.idMedico,
                 idPaciente: decodedToken.idPaciente,
-                password: '' // No necesario almacenar
-            } as any; // Usamos any temporalmente
+                password: '' 
+            } as any; 
 
             // Almacenamiento básico
             localStorage.setItem("accessToken", accessToken);
@@ -244,20 +244,24 @@ export const useAuthStore = () => {
         dispatch(finishLoading());
         dispatch(clearErrorMessage());
 
-    } catch (error: any) {
-        let errorMessage = "Error en el proceso de autenticación";
-        
-        if (error.response?.data) {
-            errorMessage = Array.isArray(error.response.data.message) 
-                ? error.response.data.message.join(", ") 
-                : error.response.data.message;
-        }
+    }  catch (error: any) {
+      let errorMessage = "Error en el proceso de autenticación";
+      
+      if (error.response) {
+          if (error.response.status === 401) {
+              errorMessage = "Credenciales incorrectas. Por favor, verifica tu email y contraseña.";
+          } else if (error.response.data) {
+              errorMessage = Array.isArray(error.response.data.message) 
+                  ? error.response.data.message.join(", ") 
+                  : error.response.data.message;
+          }
+      }
 
-        dispatch(onLogout(errorMessage));
-        dispatch(finishLoading());
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user_session");
-    }
+      dispatch(onLogout(errorMessage));
+      dispatch(finishLoading());
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user_session");
+  }
 };
 const startRegister = async (userData: Paciente) => {
   dispatch(startLoading());

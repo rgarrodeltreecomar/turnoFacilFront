@@ -29,10 +29,10 @@ export const useMedicos = () => {
         console.log("Datos a enviar (JSON):", datosJSON);
 
 
-        const response = await turnofacilAPI.post(endpoints. medicosRegister, medicData);
+        const response = await turnofacilAPI.post(endpoints.medicosRegister, medicData);
+        console.log("Datos de endpoint:", endpoints.medicosRegister);
 
-
-        if (response.status === 201 || response.status === 204) {
+        if (response.status === 201 || response.status === 204 || response.status === 200) {
             dispatch(finishLoading()); 
             Swal.fire("Éxito", "Alta de Mededico creada correctamente.", "success");
             navigate('/doctors');

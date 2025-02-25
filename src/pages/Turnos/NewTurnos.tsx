@@ -10,10 +10,11 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid
+  Grid,
+  TextField
 } from "@mui/material";
 import dayjs from "dayjs";
-import { useTurnos, useForm, useAppSelector, useAppDispatch, useMedicos, useHorarios } from "../../hooks";
+import { useTurnos, useForm, useAppSelector, useAppDispatch, useHorarios,  } from "../../hooks";
 import { TitleText, ButtonCustom } from "../../componentes";
 import { Turnos } from "../../types";
 import { removeTurnosActive } from '../../redux/turnos';
@@ -36,6 +37,7 @@ const initialForm:Turnos = {
 export const NewTuenos: React.FC = () => {
   const { isLoading, createTurno, updateTurno } = useTurnos();
   const { turnosActive } = useAppSelector((state) => state.turnos);
+  const { user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   dayjs.extend(utc);
@@ -45,7 +47,6 @@ export const NewTuenos: React.FC = () => {
     reset
   } = useForm<Turnos>(initialForm);
 
-    const { medicos,getMedicos} = useMedicos();
     const { getHorarios ,horarios} = useHorarios();
 
     const handleAddNew = () => {
@@ -76,7 +77,7 @@ export const NewTuenos: React.FC = () => {
   };
 
     useEffect(() => {
-      getMedicos();
+      console.log("Datos de usuario", user)
       getHorarios();
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -115,25 +116,28 @@ export const NewTuenos: React.FC = () => {
         <Grid container spacing={3}>
 
           <Grid item xs={12} md={6}>
-            <FormControl fullWidth>
-              <InputLabel>Médico</InputLabel>
-              <Select
-                value={formValues.idMedico}
-                label="Médico"
-                onChange={(e) => setFormValues({
-                  ...formValues,
-                  idMedico: e.target.value
-                })}
-              >
-                {medicos.map((medico) => (
-                  <MenuItem key={medico.idMedico} value={medico.idMedico}>
-                    {medico.nombre} {medico.apellido}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+          <FormControl fullWidth>
+          {user && user.idRol == 2 ? (
+            <TextField
+              label="Médico"
+              value={`${user.nombre} ${user.apellido}`} 
+              disabled 
+              fullWidth
+            />
+          ) : (
+            <Select
+              value={formValues.idMedico}
+              label="Médico"
+              onChange={(e) => setFormValues({
+                ...formValues,
+                idMedico: e.target.value
+              })}
+            >
+             
+            </Select>
+          )}
+        </FormControl>
           </Grid>
-  
           <Grid item xs={12} md={6}>
           <DatePicker
                 label="Fecha del turno"
