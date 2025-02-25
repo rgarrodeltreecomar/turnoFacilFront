@@ -266,7 +266,7 @@ const startRegister = async (userData: Paciente) => {
     const response = await turnofacilAPI.post(endpoints.pacientesRegister, userData);
     console.log("url: ",endpoints.pacientesRegister);
     console.log("Datos: ",userData);
-    if (response.status === 201 ||response.status === 204) {
+    if (response.status === 201 ||response.status === 200 || response.status === 204) {
       localStorage.setItem("username_temp", userData.email);
 
 

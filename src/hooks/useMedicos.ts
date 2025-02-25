@@ -95,14 +95,20 @@ const getMedicos = async () => {
         console.log("Datos a actualizar:", formValues);
 
         const response = await turnofacilAPI.put(
-            `${endpoints.medicos}/${formValues.idMedico}`,
-            
-        );
+          `${endpoints.medicos}/${formValues.idMedico}`,
+          formValues, 
+          {
+              headers: {
+                  "Content-Type": "application/json", 
+              },
+          }
+      );
 
         console.log("Respuesta de actualización:", response);
 
-        if (response.status === 200 || response.status === 204) {
+        if (response.status === 200 || response.status === 204  || response.status === 201) {
             Swal.fire("Éxito", "Medico actualizado correctamente.", "success");
+            navigate('/doctors');
 
             
             setMedicos(prevMedicos =>
