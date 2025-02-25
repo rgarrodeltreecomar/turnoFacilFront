@@ -63,7 +63,7 @@ const {
  
     const onClickCancel = () => {
       dispatch(removeEspecialidadActive())
-      navigate('/specialties')
+      navigate('/admin/list-specialties')
       reset()
     }
   
@@ -108,7 +108,7 @@ const {
                 {especialidadActive && (
                   <Grid item>
                     <ButtonCustom
-                      variant="contained"
+                      variant="outlined"
                       color="secondary"
                       startIcon={<ClearIcon />}
                       onClick={onClickCancel}

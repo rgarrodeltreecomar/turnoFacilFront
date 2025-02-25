@@ -11,17 +11,20 @@ import {
   Tooltip,
   TableContainer,
   Paper,
+
 } from '@mui/material'
 import {
   Edit as EditIcon,
   Delete as DeleteIcon,
+  PendingActions as  PendingActionsIcon,
+  CheckCircle as CheckCircleIcon,
+  Cancel as CancelIcon,
 } from '@mui/icons-material'
 import { useAppDispatch, useForm, useTurnos, useMedicos, useHorarios} from '../../hooks'
 import { setTurnosActive } from '../../redux/turnos'
 import {
   ButtonCustom,
   DashboardTable,
-  HoraIcon,
   ItemRow,
   Loading,
   SearchButton,
@@ -36,7 +39,7 @@ const columns: ColumnProps[] = [
   { text: 'Fecha', align: 'center' },
   { text: 'Horario', align: 'center' },
   { text: 'Paciente', align: 'center' },
-
+  { text: 'Asistencia', align: 'center' },
 ]
 
 export const ListTurnos: React.FC = () => {
@@ -99,7 +102,7 @@ dayjs.extend(utc);
 
   const onClickUpdate = (item:Turnos) => {
     dispatch( setTurnosActive(item));
-    navigate(`/turns/${item.idHorario}`);
+    navigate(`/doctors/turns/${item.idHorario}`);
   };
 
 
@@ -125,6 +128,16 @@ dayjs.extend(utc);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    console.log("Relaciones:", {
+      turnos: turnos.map(t => ({
+        idTurno: t.idTurno,
+        idHorario: t.idHorario,
+        horario: horarios.find(h => h.idHorario === t.idHorario)
+      })),
+      horarios
+    });
+  }, [turnos, horarios]);
 
   useEffect(() => {
     console.log("Relaciones:", {
@@ -146,7 +159,7 @@ dayjs.extend(utc);
       {isLoading && <Loading loading />}
        <Container maxWidth="md" sx={{ mb: 4 }}>
 
-         <TitleText text="Misturnos" startIcon={ <HoraIcon whiteBorder sx={{ fontSize: 30, color: "primary.main" }} />} align="center" />
+         <TitleText text="Alta de turnos" startIcon={ <PendingActionsIcon/>} align="center" />
                 <Grid container justifyContent="flex-end">
                        <Grid item xs={8} sm={9.0}>
                          <SearchInput
@@ -165,8 +178,8 @@ dayjs.extend(utc);
                 variant="contained"
                 color="primary"
                 component={RouterLink}
-                to="/turns/new"
-                startIcon={< HoraIcon whiteBorder />}
+                to="/doctors/turns/new"
+                startIcon={< PendingActionsIcon />}
                 sx={{ mb: 2 }}
               >
                 Nuevo
@@ -217,6 +230,13 @@ dayjs.extend(utc);
                     <TableCellStyled align="center">
                         {row.idPaciente ? row.idPaciente : 'Sin asignar'}
                     </TableCellStyled>
+                    <TableCellStyled align="center">
+                    <Tooltip title={row.asistencia ? "Asistió" : "No asistió"}>
+                      <IconButton color={row.asistencia ? "success" : "error"}>
+                        {row.asistencia ? <CheckCircleIcon /> : <CancelIcon />}
+                      </IconButton>
+                    </Tooltip>
+              </TableCellStyled>
 
                     {/* Acciones */}
                     <TableCellStyled align="right">

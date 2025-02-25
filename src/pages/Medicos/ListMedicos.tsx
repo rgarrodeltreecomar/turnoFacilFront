@@ -95,7 +95,7 @@ const loge = () => {
   const onClickUpdateMedicos = (item: Medicos) => {
     console.log('Item ID:', item.idMedico)
     dispatch(setMedicosActive(item))
-    navigate(`/doctors/${item.idMedico}`)
+    navigate(`/admin/doctors/${item.idMedico}`)
   }
 
   // const handleDeleteMedicos = (item: Medicos) => {
@@ -141,7 +141,7 @@ const loge = () => {
                 variant="contained"
                 color="primary"
                 component={RouterLink}
-                to="/doctors/new"
+                to="/admin/doctors/new"
                 startIcon={< PersonAddAltIcon />}
                 sx={{ mb: 2 }}
               >

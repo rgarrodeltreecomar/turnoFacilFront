@@ -87,7 +87,7 @@ const { filterText, handleInputChange } = useForm({ filterText: "" });
 
   const onClickUpdateHorario = (item: Horarios) => {
     dispatch(setHorarioActive(item));
-    navigate(`/schedules/${item.idHorario}`);
+    navigate(`/doctors/schedules/${item.idHorario}`);
   };
 
 
@@ -128,7 +128,7 @@ const { filterText, handleInputChange } = useForm({ filterText: "" });
                 variant="contained"
                 color="primary"
                 component={RouterLink}
-                to="/schedules/new"
+                to="/doctors/schedules/new"
                 startIcon={< HoraIcon whiteBorder />}
                 sx={{ mb: 2 }}
               >

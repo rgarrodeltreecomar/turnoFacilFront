@@ -143,7 +143,7 @@ export const NewMedicos: React.FC = () => {
 
   const onClickCancel = () => {
     dispatch(removeMedicosActive())
-    navigate('/doctors')
+    navigate('/admin/doctors')
     reset()
   }
 

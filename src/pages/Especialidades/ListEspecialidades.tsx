@@ -32,7 +32,7 @@ export const Especialidades: React.FC = () => {
 
     const onClickUpdateEspecialidades = (item: Especialidad): void => {
       dispatch(setEspecialidadActive(item));
-      navigate(`/specialties/${item.idEspecialidad}`);
+      navigate(`/admin/specialties/${item.idEspecialidad}`);
     };
   
     const handleDeleteEspecialidades = async (item: Especialidad) => {

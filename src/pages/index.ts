@@ -9,3 +9,4 @@ export * from './Horarios/ListHorarios';
 export * from './Horarios/NewHorarios';
 export * from './Turnos/ListTurnos';
 export * from './Turnos/NewTurnos';
+export * from './Turnos/TurnosDisponibles';

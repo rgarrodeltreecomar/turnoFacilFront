@@ -72,7 +72,7 @@ export const NewTuenos: React.FC = () => {
 
   const onClickCancel = () => {
     dispatch(removeTurnosActive());
-    navigate('/turns');
+    navigate('/doctors/turns');
     reset();
   };
 

@@ -10,3 +10,5 @@ export * from './TitleText/TitleText';
 export * from './DashboardTable/DashboardTable';
 export * from './AbmIcons/DoctorIcon/DoctorIcon';
 export * from './AbmIcons/HoraIcon/HoraIcon';
+export * from './ListaTurnos/ListaTurnos';
+export * from './AbmIcons/DisponibleIcon/DisponibleIcon';

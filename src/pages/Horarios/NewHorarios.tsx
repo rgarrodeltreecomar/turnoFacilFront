@@ -49,7 +49,7 @@ export const NewHorarios: React.FC = () => {
 
   const onClickCancel = () => {
     dispatch(removeHorarioActive());
-    navigate('/schedules');
+    navigate('/doctors/schedules');
     reset();
   };
 
