@@ -21,7 +21,7 @@ export const useEspecialidades = () => {
         console.log("Datos a enviar (JSON):", datosJSON);
 
 
-        const response = await turnofacilAPI.post(endpoints.especialidades, datosJSON, {
+        const response = await turnofacilAPI.post(endpoints.specialties, datosJSON, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -49,7 +49,7 @@ export const useEspecialidades = () => {
   const getEspecialidades = async () => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.get(endpoints.especialidades);
+      const response = await turnofacilAPI.get(endpoints.specialties);
 
       setIsLoading(false);
 
@@ -80,7 +80,7 @@ export const useEspecialidades = () => {
         console.log("Datos a actualizar:", formValues);
 
         const response = await turnofacilAPI.put(
-            `${endpoints.especialidades}/${formValues.idEspecialidad}`,
+            `${endpoints.specialties}/${formValues.idEspecialidad}`,
             JSON.stringify(formValues),
             {
                 headers: {
@@ -116,7 +116,7 @@ export const useEspecialidades = () => {
     setIsLoading(true);
     try {
       console.log(`Eliminando especialidad con ID: ${especialidadId}`);
-      const response = await turnofacilAPI.delete(`${endpoints.especialidades}/${especialidadId}`);
+      const response = await turnofacilAPI.delete(`${endpoints.specialties}/${especialidadId}`);
   
       console.log("Respuesta de eliminación:", response);
   

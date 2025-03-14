@@ -54,8 +54,8 @@ export const NewTuenos: React.FC = () => {
           idTurno: uuidv4(),
           idHorario: formValues.idHorario,
           idMedico: formValues.idMedico,
-          fecha: formValues.fecha, // Ya en formato ISO con UTC
-          asistencia: true, // O false según lógica de negocio
+          fecha: formValues.fecha, 
+          asistencia: true, 
           estado: formValues.estado
         };
       

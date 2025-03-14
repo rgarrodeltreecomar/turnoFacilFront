@@ -20,28 +20,30 @@ const {
   VITE_API_TURNOS_DISPONIBLES,
   VITE_API_TURNOS_CREAR,
   VITE_API_TURNOS_RESERVAR,
-  VITE_API_TURNOS_CANCELAR       
+  VITE_API_TURNOS_CANCELAR,
+  VITE_API_PAQUETES_SERVICIOS,       
 } = getEnvVariables();
 
 export const endpoints = Object.freeze({
-  especialidades: `${VITE_API_BASE_URL}${VITE_API_ESPECIALIDADES}`,
-  medicos: `${VITE_API_BASE_URL}${VITE_API_MEDICOS}`,
-  pacientes: `${VITE_API_BASE_URL}${VITE_API_PACIENTES}`,
-  consultas: `${VITE_API_BASE_URL}${VITE_API_CONSULTAS}`,
-  registro: `${VITE_API_BASE_URL}${VITE_API_REGISTRO}`,
-  horarios: `${VITE_API_BASE_URL}${VITE_API_HORARIOS}`,
+  specialties: `${VITE_API_BASE_URL}${VITE_API_ESPECIALIDADES}`,
+  doctors: `${VITE_API_BASE_URL}${VITE_API_MEDICOS}`,
+  patients: `${VITE_API_BASE_URL}${VITE_API_PACIENTES}`,
+  queries: `${VITE_API_BASE_URL}${VITE_API_CONSULTAS}`,
+  register: `${VITE_API_BASE_URL}${VITE_API_REGISTRO}`,
+  schedules: `${VITE_API_BASE_URL}${VITE_API_HORARIOS}`,
   login: `${VITE_API_BASE_URL}${VITE_API_LOGIN}`,
-  facturacion: `${VITE_API_BASE_URL}${VITE_API_FACTURACION}`,
-  citas: `${VITE_API_BASE_URL}${VITE_API_CITAS}`,
-  medicosRegister: `${VITE_API_BASE_URL}${VITE_API_REGISTRO_MEDICO}`,
-  pacientesRegister: `${VITE_API_BASE_URL}${VITE_API_REGISTRO_PACIENTE}`,
-  paquetes: `${VITE_API_BASE_URL}${VITE_API_PAQUETES}`,    
-  servicios: `${VITE_API_BASE_URL}${VITE_API_SERVICIOS}`,
-  turnos: `${VITE_API_BASE_URL}${VITE_API_TURNOS}`,
-  turnosDisponibles: `${VITE_API_BASE_URL}${VITE_API_TURNOS_DISPONIBLES}`,
-  turnosCrear: `${VITE_API_BASE_URL}${VITE_API_TURNOS_CREAR}`,
-  turnosReservar: `${VITE_API_BASE_URL}${VITE_API_TURNOS_RESERVAR}`,
-  turnosCancelar: `${VITE_API_BASE_URL}${VITE_API_TURNOS_CANCELAR}`  
+  billing: `${VITE_API_BASE_URL}${VITE_API_FACTURACION}`,
+  quotes: `${VITE_API_BASE_URL}${VITE_API_CITAS}`,
+  doctorsRegister: `${VITE_API_BASE_URL}${VITE_API_REGISTRO_MEDICO}`,
+  patientsRegister: `${VITE_API_BASE_URL}${VITE_API_REGISTRO_PACIENTE}`,
+  packages: `${VITE_API_BASE_URL}${VITE_API_PAQUETES}`,    
+  services: `${VITE_API_BASE_URL}${VITE_API_SERVICIOS}`,
+  packagesService:`${VITE_API_BASE_URL}${VITE_API_PAQUETES_SERVICIOS}`,
+  shifts: `${VITE_API_BASE_URL}${VITE_API_TURNOS}`,
+  shiftsAvailable: `${VITE_API_BASE_URL}${VITE_API_TURNOS_DISPONIBLES}`,
+  shiftsCreate: `${VITE_API_BASE_URL}${VITE_API_TURNOS_CREAR}`,
+  shiftsReserve: `${VITE_API_BASE_URL}${VITE_API_TURNOS_RESERVAR}`,
+  shiftsCancel: `${VITE_API_BASE_URL}${VITE_API_TURNOS_CANCELAR}`  
 });
 
 export const turnofacilAPI = axios.create({

@@ -16,7 +16,7 @@ export const useHorarios= () => {
     try {
         console.log("Datos a enviar:", newHorarios);
 
-        const response = await turnofacilAPI.post(endpoints.horarios, newHorarios, {
+        const response = await turnofacilAPI.post(endpoints.schedules, newHorarios, {
             headers: {
                 "Content-Type": "application/json"
             }
@@ -44,7 +44,7 @@ export const useHorarios= () => {
   const getHorarios = async () => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.get(endpoints.horarios);
+      const response = await turnofacilAPI.get(endpoints.schedules);
 
       setIsLoading(false);
 
@@ -73,7 +73,7 @@ export const useHorarios= () => {
     setIsLoading(true);
     try {
       const response = await turnofacilAPI.put(
-        `${endpoints.horarios}/${formValues.idHorario}`,
+        `${endpoints.schedules}/${formValues.idHorario}`,
         formValues, 
         {
           headers: {
@@ -103,7 +103,7 @@ export const useHorarios= () => {
     setIsLoading(true);
     try {
       
-      const response = await turnofacilAPI.delete(`${endpoints.horarios}/${horaId}`);
+      const response = await turnofacilAPI.delete(`${endpoints.schedules}/${horaId}`);
   
       console.log("Respuesta de eliminación:", response);
   

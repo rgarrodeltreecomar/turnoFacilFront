@@ -44,153 +44,6 @@ export const useAuthStore = () => {
 
 
 
-  // const startLogin = async ({ email, password }: UserLogin) => {
-  //   dispatch(startLoading());
-  //   try {
-  //     const response = await turnofacilAPI.post<ResponseAuthLogin>(
-  //       endpoints.login,
-  //       { email, password }
-  //     );
-  
-  //     if (response.status === 200 && response.data) {
-  //       const { accessToken, refreshToken, expiration } = response.data.auth;
-  //       const user = response.data.user;
-  
-  //       // Almacenar tokens y datos reales
-  //       localStorage.setItem("accessToken", accessToken);
-  //       localStorage.setItem("refreshToken", refreshToken);
-  //       localStorage.setItem("token_expiration", expiration.toString());
-  //       localStorage.setItem("user_session", JSON.stringify(user));
-  
-  //       dispatch(onLogin(user));
-  //       navigate("/home");
-  //     }
-      
-  //     dispatch(finishLoading());
-  //     dispatch(clearErrorMessage());
-  
-  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  //   } catch (error: AxiosError<ErrorResponseAuth> | any) {
-  //     let errorMessage = "Credenciales incorrectas";
-      
-  //     if (error.response?.data) {
-  //       const { code, message } = error.response.data;
-  //       errorMessage = Array.isArray(message) ? message.join(", ") : message;
-  
-  //       if (code === "UserNotConfirmedException") {
-  //         localStorage.setItem("username_temp", email);
-  //         navigate("/confirm");
-  //       }
-  //     }
-  
-  //     dispatch(onLogout(errorMessage));
-  //     dispatch(finishLoading());
-      
-  //     // Limpiar tokens en caso de error
-  //     localStorage.removeItem("accessToken");
-  //     localStorage.removeItem("user_session");
-  //   }
-  // };
-
-
-
-  // const startLogin = async ({ email, password }: UserLogin) => {
-  //   dispatch(startLoading());
-  //   try {
-  //     const response = await turnofacilAPI.post<string>(
-  //       endpoints.login,
-  //       { email, password }
-  //     );
-  
-  //     if (response.status === 200 && response.data) {
-  //       const accessToken = response.data;
-  //       const decodedToken = jwtDecode<JwtPayload>(accessToken);
-  
-  //       // Validación básica
-  //       if (!decodedToken.rol) throw new Error('Rol no definido en el token');
-  
-  //       // Campos base comunes
-  //       const baseUser = {
-  //         nombre: decodedToken.nombre || '',
-  //         apellido: decodedToken.apellido || '',
-  //         dni: decodedToken.dni || '',
-  //         email: decodedToken.email,
-  //         fechaNacimiento: decodedToken.fechaNacimiento || '',
-  //         telefono: decodedToken.telefono || '',
-  //         direccion: decodedToken.direccion || '',
-  //         password: '', // El password no debe almacenarse en el front
-  //         idRol: decodedToken.rol
-  //       };
-  
-  //       // Construir usuario específico
-  //       let user: User;
-  //       switch(decodedToken.rol) {
-  //         case 1: // Admin
-  //           if (!decodedToken.idUsuario) {
-  //             throw new Error('Falta idUsuario para admin');
-  //           }
-  //           user = {
-  //             ...baseUser,
-  //             idUsuario: decodedToken.idUsuario
-  //           } as Admin;
-  //           break;
-  
-  //         case 2: // Médico
-  //           if (!decodedToken.idMedico || !decodedToken.idEspecialidad || decodedToken.sueldo === undefined) {
-  //             throw new Error('Datos incompletos para médico');
-  //           }
-  //           user = {
-  //             ...baseUser,
-  //             idMedico: decodedToken.idMedico,
-  //             idEspecialidad: decodedToken.idEspecialidad,
-  //             sueldo: decodedToken.sueldo
-  //           } as Medicos;
-  //           break;
-  
-  //         case 3: // Paciente
-  //           if (!decodedToken.idPaciente || decodedToken.obraSocial === undefined) {
-  //             throw new Error('Datos incompletos para paciente');
-  //           }
-  //           user = {
-  //             ...baseUser,
-  //             idPaciente: decodedToken.idPaciente,
-  //             obraSocial: decodedToken.obraSocial
-  //           } as Paciente;
-  //           break;
-  
-  //         default:
-  //           throw new Error('Rol no reconocido');
-  //       }
-  
-  //       // Almacenamiento seguro
-  //       localStorage.setItem("accessToken", accessToken);
-  //       localStorage.setItem("user_session", JSON.stringify(user));
-        
-      
-  //       dispatch(onLogin(user));
-  //       navigate('/home');
-  //     }
-  
-  //     dispatch(finishLoading());
-  //     dispatch(clearErrorMessage());
-  
-  //   } catch (error: AxiosError<ErrorResponseAuth> | any) {
-  //     let errorMessage = "Error en el proceso de autenticación";
-      
-  //     if (error.message.includes('Rol no reconocido')) {
-  //       errorMessage = "Configuración de usuario inválida";
-  //     } else if (error.response?.data) {
-  //       const { code, message } = error.response.data;
-  //       errorMessage = Array.isArray(message) ? message.join(", ") : message;
-  //     }
-  
-  //     dispatch(onLogout(errorMessage));
-  //     dispatch(finishLoading());
-  //     localStorage.removeItem("accessToken");
-  //     localStorage.removeItem("user_session");
-  //   }
-  // };
-  
 
   const startLogin = async ({ email, password }: UserLogin) => {
    
@@ -233,7 +86,7 @@ export const useAuthStore = () => {
                 password: '' 
             } as any; 
 
-            // Almacenamiento básico
+
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("user_session", JSON.stringify(user));
             
@@ -267,10 +120,10 @@ const startRegister = async (userData: Paciente) => {
   dispatch(startLoading());
 
   try {
-    const response = await turnofacilAPI.post(endpoints.pacientesRegister, userData);
-    console.log("url: ",endpoints.pacientesRegister);
+    const response = await turnofacilAPI.post(endpoints.patientsRegister, userData);
+    console.log("url: ",endpoints.patientsRegister);
     console.log("Datos: ",userData);
-    if (response.status === 201 ||response.status === 200 || response.status === 204) {
+    if (response.status === HttpStatusCode.Created) {
       localStorage.setItem("username_temp", userData.email);
 
 

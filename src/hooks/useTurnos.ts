@@ -13,7 +13,7 @@ export const useTurnos = () => {
   const createTurno = async (newTurno: Turnos) => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.post(endpoints.turnosCrear, newTurno, {
+      const response = await turnofacilAPI.post(endpoints.shiftsCreate, newTurno, {
         headers: { "Content-Type": "application/json" }
       });
 
@@ -32,7 +32,7 @@ export const useTurnos = () => {
   const getTurnos = async () => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.get(endpoints.turnosDisponibles);
+      const response = await turnofacilAPI.get(endpoints.shiftsAvailable);
       
       if (response.data && response.data.length) {
         const turnosData: Turnos[] = response.data.map((turno: Turnos) => ({
@@ -61,7 +61,7 @@ export const useTurnos = () => {
     setIsLoading(true);
     try {
       const response = await turnofacilAPI.put(
-        `${endpoints.turnos}/${formValues.idTurno}`,
+        `${endpoints.shifts}/${formValues.idTurno}`,
         formValues,
         { headers: { "Content-Type": "application/json" } }
       );
@@ -84,7 +84,7 @@ export const useTurnos = () => {
   const deleteTurno = async (turnoId: string) => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.delete(`${endpoints.turnos}/${turnoId}`);
+      const response = await turnofacilAPI.delete(`${endpoints.shifts}/${turnoId}`);
 
       if (response.status === 200 || response.status === 204) {
         Swal.fire("Éxito", "Turno eliminado correctamente.", "success");
@@ -101,7 +101,7 @@ export const useTurnos = () => {
   const reserveTurno = async (turnoData: { idTurno: string, idPaciente: string }) => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.post(endpoints.turnosReservar, turnoData);
+      const response = await turnofacilAPI.post(endpoints.shiftsReserve, turnoData);
       
       if (response.status === 200) {
         Swal.fire("Éxito", "Turno reservado correctamente", "success");
@@ -118,7 +118,7 @@ export const useTurnos = () => {
   const cancelTurno = async (turnoId: string) => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.post(endpoints.turnosCancelar, { idTurno: turnoId });
+      const response = await turnofacilAPI.post(endpoints.shiftsCancel, { idTurno: turnoId });
       
       if (response.status === 200) {
         Swal.fire("Éxito", "Turno cancelado correctamente", "success");

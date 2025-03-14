@@ -29,8 +29,8 @@ export const useMedicos = () => {
         console.log("Datos a enviar (JSON):", datosJSON);
 
 
-        const response = await turnofacilAPI.post(endpoints.medicosRegister, medicData);
-        console.log("Datos de endpoint:", endpoints.medicosRegister);
+        const response = await turnofacilAPI.post(endpoints.doctorsRegister, medicData);
+        console.log("Datos de endpoint:", endpoints.doctorsRegister);
 
         if (response.status === 201 || response.status === 204 || response.status === 200) {
             dispatch(finishLoading()); 
@@ -56,7 +56,7 @@ export const useMedicos = () => {
 const getMedicos = async () => {
     setIsLoading(true);
     try {
-      const response = await turnofacilAPI.get(endpoints.medicos);
+      const response = await turnofacilAPI.get(endpoints.doctors);
   
       if (response.data && response.data.length) {
         const documents: Medicos[] = response.data.map((medico: Medicos) => ({
@@ -95,7 +95,7 @@ const getMedicos = async () => {
         console.log("Datos a actualizar:", formValues);
 
         const response = await turnofacilAPI.put(
-          `${endpoints.medicos}/${formValues.idMedico}`,
+          `${endpoints.doctors}/${formValues.idMedico}`,
           formValues, 
           {
               headers: {
@@ -156,9 +156,9 @@ const getMedicos = async () => {
     setIsLoading(true);
     try {
       console.log('[DELETE] Iniciando eliminación para médico ID:', medicosId);
-      console.log('[DELETE] URL:', `${endpoints.medicos}/${medicosId}`);
+      console.log('[DELETE] URL:', `${endpoints.doctors}/${medicosId}`);
   
-      const response = await turnofacilAPI.delete(`${endpoints.medicos}/${medicosId}`);
+      const response = await turnofacilAPI.delete(`${endpoints.doctors}/${medicosId}`);
   
       console.log("[DELETE] Respuesta completa:", response);
       console.log("[DELETE] Estado HTTP:", response.status);
